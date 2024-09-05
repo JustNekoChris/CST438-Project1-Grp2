@@ -1,3 +1,5 @@
+package com.example.pokemonpartyplannerapp;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -15,6 +17,6 @@ public class Word {
 
     private Word(@NonNull String word) {this.mWord = word;}
 
-    private String getWord(){return this.mWord;}
+    public String getWord(){return this.mWord;}
 
 }
