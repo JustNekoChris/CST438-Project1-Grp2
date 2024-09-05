@@ -21,4 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "PokemonPartyPlannerApp"
 include ':app'
-includeBuild('../node_modules/@react-native/gradle-plugin')
