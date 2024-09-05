@@ -1,5 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.facebook.react)
+}
+
+repositories {
+    mavenCentral()
 }
 
 android {
@@ -31,6 +36,10 @@ android {
 dependencies {
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
 
+    // React necessary implementations
+    implementation "com.facebook.react:react-android"
+    implementation "com.facebook.react:hermes-android"
+
     // Dependencies for working with Architecture components
     // You'll probably have to update the version numbers in build.gradle (Project)
 
@@ -56,4 +65,5 @@ dependencies {
     })
     androidTestImplementation "androidx.test.ext:junit:$rootProject.androidxJunitVersion"
 }
+
 
