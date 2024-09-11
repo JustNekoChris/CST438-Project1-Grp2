@@ -1,5 +1,7 @@
 import { View } from "react-native";
 import { useEffect } from "react";
+import { router } from "expo-router";
+import { useSession } from "@/utils/DataContext";
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -7,6 +9,8 @@ import {
 } from '@react-native-google-signin/google-signin';
 
 export default function Index() {
+  const { signIn } = useSession();
+
   useEffect(() => {
     GoogleSignin.configure({
       webClientId:
@@ -16,12 +20,18 @@ export default function Index() {
     });
   });
 
-  const signIn = async () => {
+  const googleSignIn = async () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
 
-      console.log(userInfo);
+      if (userInfo.data !== null && userInfo.data.idToken !== null) {
+        signIn(userInfo.data.idToken);
+      } else {
+        throw new Error('Userinfo returned null from Google SignIn');
+      }
+
+      router.replace('/');
     } catch (error: any) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         console.log('User cancelled the login flow');
@@ -36,6 +46,7 @@ export default function Index() {
       }
     }
   };
+
   return (
     <View
       style={{
@@ -48,7 +59,7 @@ export default function Index() {
         style={{width: 192, height: 48, marginTop: 30}}
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Dark}
-        onPress={signIn}
+        onPress={googleSignIn}
       />
     </View>
   );
