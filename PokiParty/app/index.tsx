@@ -1,5 +1,9 @@
+// Necessary import to use view from react native
 import { View } from "react-native";
+
 import { useEffect } from "react";
+
+// Imports for google account data
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -16,6 +20,7 @@ export default function Index() {
     });
   });
 
+  // Continues to try to sign a user in
   const signIn = async () => {
     try {
       await GoogleSignin.hasPlayServices();
@@ -23,6 +28,9 @@ export default function Index() {
 
       console.log(userInfo);
     } catch (error: any) {
+
+      // Gives the appropriate error code dependent on the correct error  
+
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         console.log('User cancelled the login flow');
       } else if (error.code === statusCodes.IN_PROGRESS) {
@@ -36,7 +44,14 @@ export default function Index() {
       }
     }
   };
+
+  // this return give the format of the web page mage through react native views
   return (
+    
+    // Formats the style of the view
+
+    // Anything within the view box gets displayed on the app dependent on the given style settings
+
     <View
       style={{
         flex: 1,
@@ -44,12 +59,14 @@ export default function Index() {
         alignItems: "center",
       }}
     >
+
       <GoogleSigninButton
         style={{width: 192, height: 48, marginTop: 30}}
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Dark}
         onPress={signIn}
       />
+
     </View>
   );
 }
