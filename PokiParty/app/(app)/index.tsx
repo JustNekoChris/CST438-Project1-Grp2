@@ -25,19 +25,19 @@ export default function Index() {
       <Button
         title="Pokedex"
         onPress={() => {
-          router.push('/pokedex');
+          router.push('./pokedex');
         }}
       ></Button>
       <Button
         title="PC"
         onPress={() => {
-          router.push('/userPC');
+          router.push('./userPC');
         }}
       ></Button>
       <Button
         title="Parties"
         onPress={() => {
-          router.push('/userParties');
+          router.push('./userParties');
         }}
       ></Button>
       
