@@ -29,5 +29,7 @@ As for page traversal, we use the Expo System to flip between the main pages!
 ### Relevant documentation
 
 Getting Started with React Native: https://reactnative.dev/docs/getting-started
+
 Setting up Google Oauth: https://medium.com/@mnabilarta/google-oauth-using-react-native-cli-23ce8e1cf716 
+
 Using the Expo Router System: https://docs.expo.dev/router/introduction/
