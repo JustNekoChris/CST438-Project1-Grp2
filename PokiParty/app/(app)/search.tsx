@@ -43,7 +43,7 @@ export default function Search() {
     return (
         <ParallaxScrollView
             headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }} 
-            headerImage={}>
+            headerImage={<Ionicons size={310} name="search" style={styles.headerImage} />}>
             <ThemedView style={styles.titleContainer}>
                 <ThemedText type="title">Explore</ThemedText>
             </ThemedView>
