@@ -5,7 +5,7 @@ import { useSession } from '../../utils/DataContext';
 // Needed for file navigation
 import { router } from "expo-router";
 
-export default function Index() {
+export default function Test() {
   const { signOut } = useSession();
 
   // app layout!!!
@@ -23,12 +23,11 @@ export default function Index() {
       ></Button>
 
       <Button
-        title="Test"
+        title="Back"
         onPress={() => {
-          router.push('/test');
+          router.back();
         }}
       ></Button>
-      
 
     </View>
   );

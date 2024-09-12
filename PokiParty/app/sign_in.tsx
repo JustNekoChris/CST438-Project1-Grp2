@@ -38,6 +38,7 @@ export default function Index (){
         throw new Error('Userinfo returned null from Google SignIn');
       }
 
+      // BIG DEAL : Will look into - Ed
       router.replace('/');
     } catch (error: any) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
