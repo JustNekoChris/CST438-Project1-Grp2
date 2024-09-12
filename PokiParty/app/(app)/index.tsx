@@ -1,13 +1,23 @@
-import { View, Text } from "react-native";
+import { Text, View } from 'react-native';
 
-/**
- * @returns A view for the home page of our app. 
- * This route is rendered immediately after authentication, and is only available when authenticated
- */
+import { useSession } from '../../utils/DataContext';
+
 export default function Index() {
+  const { signOut } = useSession();
+
+  // app layout!!!
   return (
-    <View>
-      <Text> Signed in! </Text>
+
+    // Initial view block
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>test!!!</Text>
+      <Text
+        onPress={() => {
+          // The `app/(app)/_layout.tsx` will redirect to the sign-in screen.
+          signOut();
+        }}>
+        Sign Out
+      </Text>
     </View>
   );
 }

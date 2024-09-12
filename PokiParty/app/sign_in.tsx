@@ -15,7 +15,7 @@ import {
  * Base code taken from https://medium.com/@mnabilarta/google-oauth-using-react-native-cli-23ce8e1cf716
  * @returns A view with a google sign in button. Will not render this path if user is authenticated.
  */
-export default function Index ({navigation }){
+export default function Index (){
   const { signIn } = useSession();
 
   useEffect(() => {
@@ -65,9 +65,6 @@ export default function Index ({navigation }){
         alignItems: "center",
       }}
     >
-      <Button 
-        title="backdoor"
-        onPress={() => navigation.navigate('Home')}/>
       <GoogleSigninButton
         style={{width: 192, height: 48, marginTop: 30}}
         size={GoogleSigninButton.Size.Wide}
