@@ -1,50 +1,35 @@
-# Welcome to your Expo app 👋
+# Welcome to Poki Party 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Curious about the world of Pokemon and the various creatures you can use to compete against other trainers?
 
-## Get started
+Looking to go through the list of Pokemon you have at your disposal in your PC?
 
-1. Install dependencies
+How about setting up various teams as a reference of balanced teams you have ready to go at your disposal?
 
-   ```bash
-   npm install
-   ```
+Do all this and even some more in the Poki Party App!
 
-2. Start the app
+## How to get started
 
-   ```bash
-    npx expo start
-   ```
+First and foremost, this app uses Google Authentication to keep track of user data so make sure you're signed in!
 
-In the output, you'll find options to open the app in a
+More to be added later...
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+# The Development Story
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Finish Later...
 
-## Get a fresh project
+## How's this app built?
 
-When you're ready, run:
+This app is built through the use of React Native as a basic template to make the android app!
 
-```bash
-npm run reset-project
-```
+Following this, we also use Google Authentication to keep track of users info by making sure they sign in!
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+As for page traversal, we use the Expo System to flip between the main pages!
 
-## Learn more
+### Relevant documentation
 
-To learn more about developing your project with Expo, look at the following resources:
+Getting Started with React Native: https://reactnative.dev/docs/getting-started
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Setting up Google Oauth: https://medium.com/@mnabilarta/google-oauth-using-react-native-cli-23ce8e1cf716 
 
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Using the Expo Router System: https://docs.expo.dev/router/introduction/
