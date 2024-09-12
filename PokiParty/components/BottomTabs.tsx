@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import ScreenA from './ScreenA';  Replace with actual screen component paths
-import Team from '../app/views/Team';
+import Team from '../app/(app)/userParties';
 
 const Tab = createBottomTabNavigator();
 

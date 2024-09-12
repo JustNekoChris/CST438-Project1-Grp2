@@ -1,12 +1,23 @@
-import { View } from "react-native";
+import * as React from 'react';
+import { Button, View, Text } from 'react-native';
 import { useEffect } from "react";
+
+import { router } from "expo-router";
+import { useSession } from "@/utils/DataContext";
 import {
   GoogleSignin,
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 
-export default function Index() {
+
+/**
+ * Base code taken from https://medium.com/@mnabilarta/google-oauth-using-react-native-cli-23ce8e1cf716
+ * @returns A view with a google sign in button. Will not render this path if user is authenticated.
+ */
+export default function Index (){
+  const { signIn } = useSession();
+
   useEffect(() => {
     GoogleSignin.configure({
       webClientId:
@@ -16,12 +27,19 @@ export default function Index() {
     });
   });
 
-  const signIn = async () => {
+  const googleSignIn = async () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
 
-      console.log(userInfo);
+      if (userInfo.data !== null && userInfo.data.idToken !== null) {
+        signIn(userInfo.data.idToken);
+      } else {
+        throw new Error('Userinfo returned null from Google SignIn');
+      }
+
+      // BIG DEAL : Will look into - Ed
+      router.replace('/');
     } catch (error: any) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         console.log('User cancelled the login flow');
@@ -36,7 +54,11 @@ export default function Index() {
       }
     }
   };
+
   return (
+
+    // Creates a view with an embedded button that calls the google sign in function
+
     <View
       style={{
         flex: 1,
@@ -48,7 +70,7 @@ export default function Index() {
         style={{width: 192, height: 48, marginTop: 30}}
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Dark}
-        onPress={signIn}
+        onPress={googleSignIn}
       />
     </View>
   );
