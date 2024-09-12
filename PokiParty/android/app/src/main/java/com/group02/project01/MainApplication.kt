@@ -11,6 +11,7 @@ import com.facebook.react.ReactHost
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.soloader.SoLoader
+import com.facebook.react.shell.MainReactPackage
 
 import expo.modules.ApplicationLifecycleDispatcher
 import expo.modules.ReactNativeHostWrapper
@@ -21,10 +22,15 @@ class MainApplication : Application(), ReactApplication {
         this,
         object : DefaultReactNativeHost(this) {
           override fun getPackages(): List<ReactPackage> {
-            // Packages that cannot be autolinked yet can be added manually here, for example:
-            // packages.add(new MyReactNativePackage());
-            return PackageList(this).packages
+            // Get the automatically linked packages
+            val packages: MutableList<ReactPackage> = PackageList(this).packages.toMutableList()
+
+            // Add your custom RoomDB package manually
+            packages.add(PokiPartyPackage())  // Add your RoomDB module package
+
+            return packages
           }
+
 
           override fun getJSMainModuleName(): String = ".expo/.virtual-metro-entry"
 
