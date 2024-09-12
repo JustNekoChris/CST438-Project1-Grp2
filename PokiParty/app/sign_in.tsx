@@ -10,6 +10,7 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 
+import { styles } from "../assets/styles/mainStyleSheet";
 
 /**
  * Base code taken from https://medium.com/@mnabilarta/google-oauth-using-react-native-cli-23ce8e1cf716
@@ -54,14 +55,6 @@ export default function Index (){
       }
     }
   };
-
-  // use this as a method of setting up style sheets!
-  // documetation : https://reactnative.dev/docs/stylesheet
-  const styles = StyleSheet.create({
-    title: {
-      textAlign: 'center',
-      marginVertical: 8,
-    }});
 
   return (
 
