@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, View, Text } from 'react-native';
+import { Button, View, Text, StyleSheet } from 'react-native';
 import { useEffect } from "react";
 
 import { router } from "expo-router";
@@ -55,6 +55,14 @@ export default function Index (){
     }
   };
 
+  // use this as a method of setting up style sheets!
+  // documetation : https://reactnative.dev/docs/stylesheet
+  const styles = StyleSheet.create({
+    title: {
+      textAlign: 'center',
+      marginVertical: 8,
+    }});
+
   return (
 
     // Creates a view with an embedded button that calls the google sign in function
@@ -66,6 +74,13 @@ export default function Index (){
         alignItems: "center",
       }}
     >
+      <Text style={styles.title}>
+        Welcome to Poki Party! The one stop shop for all your pokemon management needs!
+      </Text>
+      <Text style={styles.title}>
+        Before getting started, make sure you sign in through Google so that we can have any data 
+        linked to your google account and stored over time!
+      </Text>
       <GoogleSigninButton
         style={{width: 192, height: 48, marginTop: 30}}
         size={GoogleSigninButton.Size.Wide}
