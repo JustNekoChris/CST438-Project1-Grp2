@@ -5,7 +5,7 @@ import { useSession } from '../../utils/DataContext';
 
 /**
  * Code taken from Expo documentation: https://docs.expo.dev/router/reference/authentication/#example-authentication-context
- * @returns A view that is accessible to the user, depending on authentication status
+ * @returns A Stack that accessible to the user, depending on authentication status
  */
 export default function AppLayout() {
   const { session, isLoading } = useSession();

@@ -1,3 +1,6 @@
+/**
+ * Code taken from Expo documentation: https://docs.expo.dev/router/reference/authentication/#example-authentication-context
+ */
 import  { useEffect, useCallback, useReducer } from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { Platform } from 'react-native';

@@ -1,6 +1,9 @@
 import { useContext, createContext, type PropsWithChildren } from 'react';
 import { useStorageState } from '../hooks/useStorageState';
 
+/**
+ * A React Context that makes the session information available to the entire app.
+ */
 const AuthContext = createContext<{
   signIn: (idToken: string) => void;
   signOut: () => void;
@@ -25,6 +28,9 @@ export function useSession() {
   return value;
 }
 
+/**
+ * @returns A wrapper that adds functionality to the context.
+ */
 export function SessionProvider({ children }: PropsWithChildren) {
   const [[isLoading, session], setSession] = useStorageState('session');
 
