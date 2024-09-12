@@ -1,7 +1,9 @@
 // Necessary import to use view from react native
 import { View } from "react-native";
-
 import { useEffect } from "react";
+
+// import to make this page usable to navigate to and from other pages
+import {NavigationContainer} from '@react-navigation/native';
 
 // Imports for google account data
 import {
@@ -51,22 +53,26 @@ export default function Index() {
     // Formats the style of the view
 
     // Anything within the view box gets displayed on the app dependent on the given style settings
+    // And bc the view box is within the navigation container, that then means you can navigate to separate containers
+    
+    <NavigationContainer>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
 
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+        <GoogleSigninButton
+          style={{width: 192, height: 48, marginTop: 30}}
+          size={GoogleSigninButton.Size.Wide}
+          color={GoogleSigninButton.Color.Dark}
+          onPress={signIn}
+        />
 
-      <GoogleSigninButton
-        style={{width: 192, height: 48, marginTop: 30}}
-        size={GoogleSigninButton.Size.Wide}
-        color={GoogleSigninButton.Color.Dark}
-        onPress={signIn}
-      />
+      </View>
+    </NavigationContainer>
 
-    </View>
   );
 }
