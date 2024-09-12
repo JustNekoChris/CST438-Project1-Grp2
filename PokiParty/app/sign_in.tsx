@@ -1,5 +1,7 @@
-import { View } from "react-native";
+import * as React from 'react';
+import { Button, View, Text } from 'react-native';
 import { useEffect } from "react";
+
 import { router } from "expo-router";
 import { useSession } from "@/utils/DataContext";
 import {
@@ -13,7 +15,7 @@ import {
  * Base code taken from https://medium.com/@mnabilarta/google-oauth-using-react-native-cli-23ce8e1cf716
  * @returns A view with a google sign in button. Will not render this path if user is authenticated.
  */
-export default function Index() {
+export default function Index ({navigation }){
   const { signIn } = useSession();
 
   useEffect(() => {
@@ -53,6 +55,9 @@ export default function Index() {
   };
 
   return (
+
+    // Creates a view with an embedded button that calls the google sign in function
+
     <View
       style={{
         flex: 1,
@@ -60,6 +65,9 @@ export default function Index() {
         alignItems: "center",
       }}
     >
+      <Button 
+        title="backdoor"
+        onPress={() => navigation.navigate('Home')}/>
       <GoogleSigninButton
         style={{width: 192, height: 48, marginTop: 30}}
         size={GoogleSigninButton.Size.Wide}
