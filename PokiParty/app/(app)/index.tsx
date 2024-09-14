@@ -5,6 +5,9 @@ import { useSession } from '../../utils/DataContext';
 // Needed for file navigation
 import { router } from "expo-router";
 
+// Basic style sheet
+import { styles } from '@/assets/styles/mainStyleSheet';
+
 export default function Index() {
   const { signOut } = useSession();
 
@@ -12,7 +15,7 @@ export default function Index() {
   return (
 
     // Initial view block
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={styles.container}>
       
       <Button
         title="Sign Out"
