@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Button, FlatList, Alert, TextInput } from 'react-native';
 import { NativeModules } from 'react-native';
 
@@ -12,6 +12,13 @@ const { PokiPartyModule } = NativeModules;
 const Team: React.FC = () => {
   const [teams, setTeams] = useState<any[]>([]); // State to store the list of teams
   const [teamName, setTeamName] = useState('');
+
+  // Will now load the teams when the app is loaded
+  // Source: https://stackoverflow.com/questions/64945215/react-native-how-to-execute-function-every-time-when-i-open-page
+  useEffect(() =>
+    {
+       fetchAllTeams();
+    }, [])
 
   // Function to insert a team
   const insertTeam = async () => {
@@ -51,6 +58,13 @@ const Team: React.FC = () => {
         // Check if teamsArray is an array
         if (Array.isArray(teamsArray)) {
             setTeams(teamsArray);
+
+            // will add a team to a users database if they have no teams set up
+            // TO DO
+            if (teamsArray) {
+
+            }
+
         } else {
             console.error('Expected an array but got:', teamsArray);
         }
@@ -96,7 +110,6 @@ const Team: React.FC = () => {
         placeholder='Enter Team Name'
       />
       <Button title="Insert Team" onPress={insertTeam} />
-      <Button title="Fetch All Teams" onPress={fetchAllTeams} />
   
       <FlatList
         data={teams}
