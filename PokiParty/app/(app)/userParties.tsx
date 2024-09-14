@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, Button, FlatList, StyleSheet, Alert, TextInput } from 'react-native';
+import { View, Text, Button, FlatList, Alert, TextInput } from 'react-native';
 import { NativeModules } from 'react-native';
+
+// imports the main style sheet 
+import { styles } from '../../assets/styles/mainStyleSheet';
+
+import { router } from 'expo-router';
 
 const { PokiPartyModule } = NativeModules;
 
@@ -99,37 +104,16 @@ const Team: React.FC = () => {
         keyExtractor={(item) => item.id.toString()} // Ensure 'id' is available and unique
         style={styles.list}
       />
+
+      <Button
+        title="Back"
+        onPress={() => {
+          router.back();
+        }}
+      ></Button>
+
     </View>
   );
 };
-
-// Styles for the component
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#fff',
-  },
-  list: {
-    marginTop: 16,
-  },
-  item: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-  },
-  itemText: {
-    fontSize: 16,
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
-  Button: {
-    padding: 10
-  }
-});
 
 export default Team;
