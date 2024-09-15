@@ -10,6 +10,7 @@ import { styles } from '@/assets/styles/mainStyleSheet';
 
 // Other common assets
 import { BasicBackButton } from '@/components/navigation/BackButton';
+import { PokeIcon } from '@/components/pokemonIcon';
 
 export default function pokedex() {
   const { signOut } = useSession();
@@ -20,6 +21,7 @@ export default function pokedex() {
     // Initial view block
     <View style={styles.container}>
 
+      < PokeIcon />
       < BasicBackButton/>
 
     </View>
