@@ -19,6 +19,7 @@ export default function Index() {
       
       <Button
         title="Sign Out"
+        color = {'#bf0d0a'}
         onPress={() => {
           // The `app/(app)/_layout.tsx` will redirect to the sign-in screen.
           signOut();
@@ -27,18 +28,21 @@ export default function Index() {
 
       <Button
         title="Pokedex"
+        color = {'#bf0d0a'}
         onPress={() => {
           router.push('/pokedex');
         }}
       ></Button>
       <Button
         title="PC"
+        color = {'#bf0d0a'}
         onPress={() => {
           router.push('/userPC');
         }}
       ></Button>
       <Button
         title="Parties"
+        color = {'#bf0d0a'}
         onPress={() => {
           router.push('/userParties');
         }}

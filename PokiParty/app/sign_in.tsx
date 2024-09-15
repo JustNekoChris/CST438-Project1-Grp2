@@ -40,6 +40,8 @@ export default function Index (){
       }
 
       // BIG DEAL : Will look into - Ed
+      // Honestly haven't yet. Will look into what the replace stuff does once I do more styling stuff - Ed 9/14/24
+
       router.replace('/');
     } catch (error: any) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -61,11 +63,7 @@ export default function Index (){
     // Creates a view with an embedded button that calls the google sign in function
 
     <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+      style={styles.container}
     >
       <Text style={styles.title}>
         Welcome to Poki Party! The one stop shop for all your pokemon management needs!
@@ -77,7 +75,7 @@ export default function Index (){
       <GoogleSigninButton
         style={{width: 192, height: 48, marginTop: 30}}
         size={GoogleSigninButton.Size.Wide}
-        color={GoogleSigninButton.Color.Dark}
+        color={GoogleSigninButton.Color.Light}
         onPress={googleSignIn}
       />
     </View>

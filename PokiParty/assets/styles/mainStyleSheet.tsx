@@ -11,7 +11,8 @@ export const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: '#fff',
-    justifyContent:'center'
+    justifyContent:'center',
+    alignItems: "center"
   },
   list: {
     marginTop: 16,
