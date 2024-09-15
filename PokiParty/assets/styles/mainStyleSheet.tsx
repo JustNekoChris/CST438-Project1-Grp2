@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     padding: 10,
   },
   Button: {
-    padding: 10
+    color : '#bf0d0a'
   }
   }  
 );

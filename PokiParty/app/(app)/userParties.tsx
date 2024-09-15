@@ -5,7 +5,8 @@ import { NativeModules } from 'react-native';
 // imports the main style sheet 
 import { styles } from '../../assets/styles/mainStyleSheet';
 
-import { router } from 'expo-router';
+// Other common assets
+import { BasicBackButton } from '@/components/navigation/BackButton';
 
 const { PokiPartyModule } = NativeModules;
 
@@ -118,12 +119,7 @@ const Team: React.FC = () => {
         style={styles.list}
       />
 
-      <Button
-        title="Back"
-        onPress={() => {
-          router.back();
-        }}
-      ></Button>
+      <BasicBackButton/>
 
     </View>
   );

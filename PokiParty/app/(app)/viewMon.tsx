@@ -1,4 +1,4 @@
-import { Text, View, Button } from 'react-native';
+import { Text, View, Button, BackHandler } from 'react-native';
 
 import { useSession } from '../../utils/DataContext';
 
@@ -7,6 +7,9 @@ import { router } from "expo-router";
 
 // Basic style sheet
 import { styles } from '@/assets/styles/mainStyleSheet';
+
+// Other common assets
+import { BasicBackButton } from '@/components/navigation/BackButton';
 
 export default function viewMon() {
   const { signOut } = useSession();
@@ -17,12 +20,7 @@ export default function viewMon() {
     // Initial view block
     <View style={styles.container}>
 
-      <Button
-        title="Back"
-        onPress={() => {
-          router.back();
-        }}
-      ></Button>
+      < BasicBackButton />
 
     </View>
   );
