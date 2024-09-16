@@ -1,12 +1,25 @@
-import React, { useState } from 'react';
-import { View, Text, Button, FlatList, StyleSheet, Alert, TextInput } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Button, FlatList, Alert, TextInput } from 'react-native';
 import { NativeModules } from 'react-native';
+
+// imports the main style sheet 
+import { styles } from '../../assets/styles/mainStyleSheet';
+
+// Other common assets
+import { BasicBackButton } from '@/components/navigation/BackButton';
 
 const { PokiPartyModule } = NativeModules;
 
 const Team: React.FC = () => {
   const [teams, setTeams] = useState<any[]>([]); // State to store the list of teams
   const [teamName, setTeamName] = useState('');
+
+  // Will now load the teams when the app is loaded
+  // Source: https://stackoverflow.com/questions/64945215/react-native-how-to-execute-function-every-time-when-i-open-page
+  useEffect(() =>
+    {
+       fetchAllTeams();
+    }, [])
 
   // Function to insert a team
   const insertTeam = async () => {
@@ -46,6 +59,13 @@ const Team: React.FC = () => {
         // Check if teamsArray is an array
         if (Array.isArray(teamsArray)) {
             setTeams(teamsArray);
+
+            // will add a team to a users database if they have no teams set up
+            // TO DO
+            if (teamsArray) {
+
+            }
+
         } else {
             console.error('Expected an array but got:', teamsArray);
         }
@@ -91,7 +111,6 @@ const Team: React.FC = () => {
         placeholder='Enter Team Name'
       />
       <Button title="Insert Team" onPress={insertTeam} />
-      <Button title="Fetch All Teams" onPress={fetchAllTeams} />
   
       <FlatList
         data={teams}
@@ -99,37 +118,11 @@ const Team: React.FC = () => {
         keyExtractor={(item) => item.id.toString()} // Ensure 'id' is available and unique
         style={styles.list}
       />
+
+      <BasicBackButton/>
+
     </View>
   );
 };
-
-// Styles for the component
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#fff',
-  },
-  list: {
-    marginTop: 16,
-  },
-  item: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-  },
-  itemText: {
-    fontSize: 16,
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
-  Button: {
-    padding: 10
-  }
-});
 
 export default Team;
