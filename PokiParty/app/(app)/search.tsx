@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 5,
         marginVertical: 10,
-        width: '30%',
+        width: '60%',
         alignSelf: 'center',
         borderWidth: 0,
         borderColor: 'transparent',
