@@ -42,7 +42,46 @@ public class PokiPartyModule extends ReactContextBaseJavaModule {
         }).start();
     }
 
-
+    /**
+     * Method for removing a pokemon from a team
+     * @param teamId ID of team
+     * @param index 0 indexed spot to remove pokemon from
+     * @param promise
+     */
+    @ReactMethod
+    public void removeTeamMember(int teamId, int index, Promise promise) {
+        new Thread(() -> {
+            try {
+                Team team = db.team().getById(teamId);
+                team.removePokemon(index);
+                promise.resolve("Team member removed successfully");
+            } catch (Exception e) {
+                promise.reject("Error removing team member", e);
+            }
+        }).start();
+    }
+    
+    /**
+     * Method for adding a pokemon to an existing team
+     * @param teamId ID of team
+     * @param pokeId ID of pokemon to insert
+     * @param promise
+     */
+    @ReactMethod
+    public void addTeamMember(int teamId, String pokeId, Promise promise) {
+        new Thread(() -> {
+            try {
+                Team team = db.team().getById(teamId);
+                Integer returnCode = team.addPokemon(pokeId);
+                if (returnCode.equals(1)) {
+                    throw Exception("Team is full");
+                }
+                promise.resolve("Team member added successfully");
+            } catch (Exception e) {
+                promise.reject("Error adding team member", e);
+            }
+        }).start();
+    }
 
     // Example of querying all teams
     @ReactMethod
@@ -60,14 +99,14 @@ public class PokiPartyModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void deleteTeamMember(int teamId, Promise promise) {
+    public void deleteTeam(int teamId, Promise promise) {
         new Thread(() -> {
             try {
                 // Implement the logic to delete the team member from the database
                 db.team().deleteById(teamId);
-                promise.resolve("Team member deleted successfully");
+                promise.resolve("Team deleted successfully");
             } catch (Exception e) {
-                promise.reject("Error deleting team member", e);
+                promise.reject("Error deleting team", e);
             }
         }).start();
     }

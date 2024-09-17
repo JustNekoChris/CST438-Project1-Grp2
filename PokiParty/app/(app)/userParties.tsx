@@ -10,7 +10,7 @@ import { BasicBackButton } from '@/components/navigation/BackButton';
 
 const { PokiPartyModule } = NativeModules;
 
-const Team: React.FC = () => {
+export default function UserParties() {
   const [teams, setTeams] = useState<any[]>([]); // State to store the list of teams
   const [teamName, setTeamName] = useState('');
 
@@ -124,5 +124,3 @@ const Team: React.FC = () => {
     </View>
   );
 };
-
-export default Team;

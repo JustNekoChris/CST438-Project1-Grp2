@@ -25,6 +25,10 @@ public interface TeamDAO {
     @Query("SELECT * FROM Teams WHERE userInfo = :userInfo")
     List<Team> getAllByUserInfo(String userInfo);
 
+    // Retrieve team by id
+    @Query("SELECT * FROM Teams WHERE id = :teamId")
+    Team getById(int teamId);
+    
     // New method to check if a team with userInfo and teamName exists
     @Query("SELECT EXISTS(SELECT 1 FROM Teams WHERE userInfo = :userInfo AND teamName = :teamName)")
     boolean exists(String userInfo, String teamName);
