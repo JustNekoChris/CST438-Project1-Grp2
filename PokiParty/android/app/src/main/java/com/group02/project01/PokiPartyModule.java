@@ -59,6 +59,7 @@ public class PokiPartyModule extends ReactContextBaseJavaModule {
         }).start();
     }
 
+    // method to delete a team member
     @ReactMethod
     public void deleteTeamMember(int teamId, Promise promise) {
         new Thread(() -> {
@@ -72,11 +73,40 @@ public class PokiPartyModule extends ReactContextBaseJavaModule {
         }).start();
     }
 
+    // Method to check if a team exists for a specific user
     @ReactMethod
     public void checkExists(String userInfo, String teamName, Promise promise) {
         new Thread(() -> {
             try {
                 boolean exists = db.team().exists(userInfo, teamName);
+                promise.resolve(exists);
+            } catch (Exception e) {
+                promise.reject("Error checking if exists", e);
+            }
+        }).start();
+    }
+
+    // Method to get all Pokemon by user info
+    @ReactMethod
+    public void getPokemonByUserInfo(String userInfo, Promise promise) {
+        new Thread(() -> {
+            try {
+                List<Team> teams = db.team().getAllByUserInfo(userInfo);
+                Type listType = new TypeToken<List<Team>>() {}.getType();
+                String json = gson.toJson(teams, listType); // Convert list to JSON
+                promise.resolve(json); // Return JSON string to JS
+            } catch (Exception e) {
+                promise.reject("Error fetching teams", e);
+            }
+        }).start();
+    }
+
+    // Method to check if a pokemon with userInfo and pokeID exists
+    @ReactMethod
+    public void checkExistspokemon(String userInfo, String id, Promise promise) {
+        new Thread(() -> {
+            try {
+                boolean exists = db.team().exists(userInfo, id);
                 promise.resolve(exists);
             } catch (Exception e) {
                 promise.reject("Error checking if exists", e);
