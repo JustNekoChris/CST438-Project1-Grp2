@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Button, FlatList, StyleSheet, Alert, TextInput } from 'react-native';
 import { NativeModules } from 'react-native';
 
@@ -15,7 +15,7 @@ const Team: React.FC = () => {
       return;
     }
     try {
-      const result = await PokiPartyModule.insertTeam('user1', teamName, 'poke1', 'poke2', 'poke3', 'poke4', 'poke5', 'poke6');
+      const result = await PokiPartyModule.insertTeam('user1', teamName, null, 'poke2', 'poke3', 'poke4', 'poke5', 'poke6');
       console.log('Insert team result:', result);
       fetchAllTeams(); // Fetch teams after inserting a new one
     } catch (error) {
@@ -75,6 +75,10 @@ const Team: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    fetchAllTeams();
+  }, []);
+
   // Render item for FlatList
   const renderItem = ({ item }: { item: any }) => (
     <View style={styles.item}>
@@ -91,7 +95,6 @@ const Team: React.FC = () => {
         placeholder='Enter Team Name'
       />
       <Button title="Insert Team" onPress={insertTeam} />
-      <Button title="Fetch All Teams" onPress={fetchAllTeams} />
   
       <FlatList
         data={teams}
