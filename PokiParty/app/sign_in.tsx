@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, View, Text } from 'react-native';
+import { Button, View, Text, StyleSheet } from 'react-native';
 import { useEffect } from "react";
 
 import { router } from "expo-router";
@@ -10,6 +10,7 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 
+import { styles } from "../assets/styles/mainStyleSheet";
 
 /**
  * Base code taken from https://medium.com/@mnabilarta/google-oauth-using-react-native-cli-23ce8e1cf716
@@ -39,6 +40,8 @@ export default function Index (){
       }
 
       // BIG DEAL : Will look into - Ed
+      // Honestly haven't yet. Will look into what the replace stuff does once I do more styling stuff - Ed 9/14/24
+
       router.replace('/');
     } catch (error: any) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -60,16 +63,19 @@ export default function Index (){
     // Creates a view with an embedded button that calls the google sign in function
 
     <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+      style={styles.container}
     >
+      <Text style={styles.title}>
+        Welcome to Poki Party! The one stop shop for all your pokemon management needs!
+      </Text>
+      <Text style={styles.title}>
+        Before getting started, make sure you sign in through Google so that we can have any data 
+        linked to your google account and stored over time!
+      </Text>
       <GoogleSigninButton
         style={{width: 192, height: 48, marginTop: 30}}
         size={GoogleSigninButton.Size.Wide}
-        color={GoogleSigninButton.Color.Dark}
+        color={GoogleSigninButton.Color.Light}
         onPress={googleSignIn}
       />
     </View>
