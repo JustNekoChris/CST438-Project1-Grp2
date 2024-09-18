@@ -86,14 +86,30 @@ public class PokiPartyModule extends ReactContextBaseJavaModule {
         }).start();
     }
 
+    // Method to get all pokemon
+    @ReactMethod
+    public void getAllPokemon(Promise promise) {
+        new Thread(() -> {
+            try {
+                List<Pokemon> pokemons = db.pokemon().getAll();
+                Type listTypePokemon = new TypeToken<List<Pokemon>>() {}.getType();
+                String json = gson.toJson(pokemons, listTypePokemon); // Convert list to JSON
+                promise.resolve(json); // Return JSON string to JS
+            } catch (Exception e) {
+                promise.reject("Error fetching pokemons", e);
+            }
+        }).start();
+    }
+
     // Method to get all Pokemon by user info
     @ReactMethod
     public void getPokemonByUserInfo(String userInfo, Promise promise) {
         new Thread(() -> {
             try {
-                List<Team> teams = db.team().getAllByUserInfo(userInfo);
-                Type listType = new TypeToken<List<Team>>() {}.getType();
-                String json = gson.toJson(teams, listType); // Convert list to JSON
+                System.out.println(userInfo);
+                List<Pokemon> pokemon = db.pokemon().getAllByUserInfo(userInfo);
+                Type listTypePokemon = new TypeToken<List<Pokemon>>() {}.getType();
+                String json = gson.toJson(pokemon, listTypePokemon); // Convert list to JSON
                 promise.resolve(json); // Return JSON string to JS
             } catch (Exception e) {
                 promise.reject("Error fetching teams", e);
@@ -103,13 +119,27 @@ public class PokiPartyModule extends ReactContextBaseJavaModule {
 
     // Method to check if a pokemon with userInfo and pokeID exists
     @ReactMethod
-    public void checkExistspokemon(String userInfo, String id, Promise promise) {
+    public void checkExistspokemon(String userInfo, String pokename, Promise promise) {
         new Thread(() -> {
             try {
-                boolean exists = db.team().exists(userInfo, id);
+                boolean exists = db.team().exists(userInfo, pokename);
                 promise.resolve(exists);
             } catch (Exception e) {
                 promise.reject("Error checking if exists", e);
+            }
+        }).start();
+    }
+
+    // Method to insert a pokemon
+    @ReactMethod
+    public void insertPokemon(String userInfo, String pokeName, String imageURL, Promise promise) {
+        new Thread(() -> {
+            try {
+                Pokemon pokemon = new Pokemon(userInfo, pokeName, imageURL);
+                db.pokemon().add(pokemon);
+                promise.resolve("Pokemon inserted successfully");
+            } catch (Exception e) {
+                promise.reject("Error inserting pokemon", e);
             }
         }).start();
     }

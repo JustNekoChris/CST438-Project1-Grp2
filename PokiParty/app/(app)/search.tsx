@@ -7,6 +7,11 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
+import { NativeModules } from 'react-native';
+const { PokiPartyModule } = NativeModules;
+
+import { useSession } from '../../utils/DataContext';
+
 export default function Search() {
     const [searchBool, setSearchBool] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -14,6 +19,7 @@ export default function Search() {
     const [pokemonData, setPokemonData] = useState(null);
     const [pokemonTypeData, setPokemonTypeData] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
+    const {email} = useSession();
 
     const handlePress = async (pokemonName : string) => {
         getModalData(pokemonName);
@@ -57,6 +63,15 @@ export default function Search() {
         console.log(data);
         setModalData(data);
         setPokemonData(null);
+    }
+
+    const addPokemonToPC = async (pokemon : string, imageURL: string) => {
+        try {
+            await PokiPartyModule.insertPokemon(email, pokemon, imageURL);
+            console.log('Added pokemon:', pokemon);
+        } catch (error) {
+            console.error('Error adding pokemon:', error);
+        }
     }
 
     return (
@@ -163,7 +178,10 @@ export default function Search() {
                                             <ThemedText style={styles.statColumns}> {modalData["stats"][5]["stat"]['name']} : {modalData["stats"][5]["base_stat"]} </ThemedText>
                                         </View>
                                     </View>
-                                    <Button title="Back" onPress={() => setModalVisible(false)} />
+                                    <View style={styles.center, styles.rows}>
+                                        <Button title="Back" onPress={() => setModalVisible(false)} />
+                                        <Button title='Add to Team' onPress={() => addPokemonToPC(modalData["name"], modalData["sprites"]["front_default"])} />
+                                    </View>
                                 </View>
                             </View>
                         )}

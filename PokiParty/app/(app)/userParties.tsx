@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, FlatList, StyleSheet, Alert, TextInput } from 'react-native';
-import { NativeModules } from 'react-native';
 
 // imports the main style sheet 
 import { styles } from '../../assets/styles/mainStyleSheet';
@@ -8,6 +7,7 @@ import { styles } from '../../assets/styles/mainStyleSheet';
 // Other common assets
 import { BasicBackButton } from '@/components/navigation/BackButton';
 
+import { NativeModules } from 'react-native';
 const { PokiPartyModule } = NativeModules;
 
 const Team: React.FC = () => {
