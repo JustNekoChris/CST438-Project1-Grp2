@@ -8,7 +8,7 @@ import { styles } from '@/assets/styles/mainStyleSheet';
 
 // Other common assets
 import { BasicBackButton } from '@/components/navigation/BackButton';
-import { PokeIcon } from '@/components/pokemonIcon';
+import { pokemonData, PokeIcon } from '@/components/pokemonIcon';
 
 export default function pokedex() {
   // app layout!!!
@@ -17,7 +17,9 @@ export default function pokedex() {
     // Initial view block
     <View style={styles.container}>
 
-      < PokeIcon />
+      < PokeIcon 
+          id={123}
+      />
       < BasicBackButton/>
 
     </View>
