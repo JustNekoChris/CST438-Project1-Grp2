@@ -18,9 +18,17 @@ public class Pokemon {
     @ColumnInfo(name = "pokeID")
     private String pokeID;
 
-    public Pokemon(String pokeID, String userInfo) {
+    @ColumnInfo(name = "pokeName")
+    private String pokeName;
+
+    @ColumnInfo(name = "imageURL")
+    private String imageURL;
+
+    public Pokemon(String pokeID, String userInfo, String pokeName, String imageURL) {
         this.pokeID = pokeID;
         this.userInfo = userInfo;
+        this.pokeName = pokeName;
+        this.imageURL = imageURL;
     }
 
     public int getId() {
@@ -45,6 +53,22 @@ public class Pokemon {
 
     public void setPokeID(String pokeID) {
         this.pokeID = pokeID;
+    }
+
+    public String getPokeName() {
+        return pokeName;
+    }
+
+    public void setPokeName(String pokeName) {
+        this.pokeName = pokeName;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     @Override

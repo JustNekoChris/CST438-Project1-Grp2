@@ -5,14 +5,16 @@ import { useStorageState } from '../hooks/useStorageState';
  * A React Context that makes the session information available to the entire app.
  */
 const AuthContext = createContext<{
-  signIn: (idToken: string) => void;
+  signIn: (idToken: string, email: string) => void;
   signOut: () => void;
   session?: string | null;
+  email?: string | null;
   isLoading: boolean;
 }>({
   signIn: () => null,
   signOut: () => null,
   session: null,
+  email: null,
   isLoading: false,
 });
 
@@ -33,18 +35,22 @@ export function useSession() {
  */
 export function SessionProvider({ children }: PropsWithChildren) {
   const [[isLoading, session], setSession] = useStorageState('session');
+  const [[isLoading2, email], setEmail] = useStorageState('email');
 
   return (
     <AuthContext.Provider
       value={{
-        signIn: (idToken: string) => {
+        signIn: (idToken: string, email: string) => {
           // Perform sign-in logic here
           setSession(idToken);
+          setEmail(email)
         },
         signOut: () => {
           setSession(null);
+          setEmail(null)
         },
         session,
+        email,
         isLoading,
       }}>
       {children}

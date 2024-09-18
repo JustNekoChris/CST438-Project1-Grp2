@@ -95,10 +95,6 @@ const Team: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    fetchAllTeams();
-  }, []);
-
   // Render item for FlatList
   const renderItem = ({ item }: { item: any }) => (
     <View style={styles.item}>
@@ -119,7 +115,7 @@ const Team: React.FC = () => {
       <FlatList
         data={teams}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()} // Ensure 'id' is available and unique
+        keyExtractor={(item) => item.id} // Ensure 'id' is available and unique
         style={styles.list}
       />
 
