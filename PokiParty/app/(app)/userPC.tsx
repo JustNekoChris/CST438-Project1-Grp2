@@ -1,4 +1,4 @@
-import { Text, View, Button } from 'react-native';
+import { Text, View, Button, Image } from 'react-native';
 
 // Needed for file navigation
 import { router } from "expo-router";
@@ -28,29 +28,29 @@ export default function userPC() {
     try {
       const pokemonList = await PokiPartyModule.getPokemonByUserInfo(email);
       console.log(email);
-      console.log('Fetched pokemon:', pokemon);
+      console.log('Fetched pokemon:', pokemonList);
 
-      let teamPokemon;
+      let pokemonJson;
       if (typeof pokemonList === 'string') {
           try {
-              teamPokemon = JSON.parse(pokemonList);
-              console.log('Parsed pokemon:', teamPokemon);
+              pokemonJson = JSON.parse(pokemonList);
+              console.log('Parsed pokemon:', pokemonJson);
           } catch (e) {
               console.error('Error parsing JSON:', e);
               return;
           }
       } else {
           // If not a string, use it directly
-          teamPokemon = pokemonList;
-          console.log('Got pokemon:', teamPokemon);
+          pokemonJson = pokemonList;
+          console.log('Got pokemon:', pokemonJson);
       }
 
       // Check if pokemonArray is an array
-      if (Array.isArray(teamPokemon)) {
-        setPokemon(teamPokemon);
-        console.log('Set pokemon:', teamPokemon);
+      if (Array.isArray(pokemonJson)) {
+        setPokemon(pokemonJson);
+        console.log('Set pokemon:', pokemonJson);
       } else {
-          console.error('Expected an array but got:', teamPokemon);
+          console.error('Expected an array but got:', pokemonJson);
       }
     } catch (error) {
       console.error('Error fetching pokemon:', error);
@@ -60,6 +60,7 @@ export default function userPC() {
    // Render item for FlatList
    const renderItem = ({ item }: { item: any }) => (
     <View style={styles.item}>
+      <Image source={{ uri : item.imageURL }} style={{width: 80, height: 80}}/>
       <Text style={styles.itemText}>{item.pokeName}</Text>
     </View>
   );
@@ -77,6 +78,7 @@ export default function userPC() {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         style={styles.list}
+        numColumns={3}
       />
 
     </View>
