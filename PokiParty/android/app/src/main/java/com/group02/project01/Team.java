@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.Objects;
+import java.util.*;
 
 @Entity(tableName = "Teams")
 public class Team {
@@ -36,15 +36,15 @@ public class Team {
     @ColumnInfo(name = "pokeID6")
     private String pokeID6;
 
-    public Team(String userInfo, String teamName, String pokeID1, String pokeID2, String pokeID3, String pokeID4, String pokeID5, String pokeID6) {
+    public Team(String userInfo, String teamName) {
         this.userInfo = userInfo;
         this.teamName = teamName;
-        this.pokeID1 = pokeID1;
-        this.pokeID2 = pokeID2;
-        this.pokeID3 = pokeID3;
-        this.pokeID4 = pokeID4;
-        this.pokeID5 = pokeID5;
-        this.pokeID6 = pokeID6;
+        this.pokeID1 = "";
+        this.pokeID2 = "";
+        this.pokeID3 = "";
+        this.pokeID4 = "";
+        this.pokeID5 = "";
+        this.pokeID6 = "";
     }
 
     public int getId() {
@@ -117,6 +117,61 @@ public class Team {
 
     public void setPokeID6(String pokeID6) {
         this.pokeID6 = pokeID6;
+    }
+
+    /**
+     * 
+     * @return A List with all pokemon ID values
+     */
+    public List<String> getValuesAsList() {
+        return Arrays.asList(this.getPokeID1(), this.getPokeID2(), this.getPokeID3(), this.getPokeID4(), this.getPokeID5(), this.getPokeID6());
+    }
+
+    public void setValuesFromList(List<String> listValues) {
+        this.setPokeID1(listValues.get(0));
+        this.setPokeID2(listValues.get(1));
+        this.setPokeID3(listValues.get(2));
+        this.setPokeID4(listValues.get(3));
+        this.setPokeID5(listValues.get(4));
+        this.setPokeID6(listValues.get(5));
+    }
+
+    /**
+     * 
+     * @param pokeId The ID of the pokemon you wish to add 
+     * @return 0 if pokemon was successfully added, 1 if there was no space
+     */
+    public int addPokemon(String pokeId) {
+        List<String> listValues = this.getValuesAsList();
+
+        for (int i = 0; i < listValues.size(); i++) {
+            if (listValues.get(i).equals("")) {
+                listValues.set(i, pokeId);
+                setValuesFromList(listValues);
+                return 0;
+            }
+        }
+
+        return 1;
+    }
+
+    /**
+     * Removes a pokemon and shifts remaining to fill its spot
+     * @param index The index of the pokemon to remove
+     */
+    public void removePokemon(int index) {
+        List<String> listValues = this.getValuesAsList();
+
+        listValues.set(index, "");
+        for (int i = index; i < listValues.size() - 1; i++) {
+            if (!listValues.get(i + 1).equals("")) {
+                listValues.set(i, listValues.get(i + 1));
+            } else {
+                listValues.set(i, "");
+            }
+        }
+
+        listValues.set(listValues.size() - 1, "");
     }
 
     @Override
