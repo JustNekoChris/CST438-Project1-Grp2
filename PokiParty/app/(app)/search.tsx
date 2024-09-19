@@ -147,15 +147,17 @@ export default function Search() {
             {!pokemonTypeData ? (
                 <ThemedText></ThemedText>
             ) : (
-                <View style={styles.center}>
+                <View style={styles.container}>
                     {
                         pokemonTypeData?.pokemon?.map((pokemonEntry, index) => (
                             <TouchableOpacity key={index} onPress={() =>  handlePress(pokemonEntry.pokemon.name)}>
-                                <Image
-                                    source={{uri:uriUrl(pokemonEntry.pokemon.url)}}
-                                    style={{width: 100, height: 100}}
-                                />
-                                <ThemedText style={styles.spaced}>{pokemonEntry.pokemon.name}</ThemedText>
+                                <View style={styles.box}>
+                                    <Image
+                                        source={{uri:uriUrl(pokemonEntry.pokemon.url)}}
+                                        style={{width: 100, height: 100}}
+                                    />
+                                    <ThemedText style={styles.spaced}>{pokemonEntry.pokemon.name}</ThemedText>
+                                </View>
                             </TouchableOpacity>
                         ))
                     }

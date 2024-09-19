@@ -48,8 +48,19 @@ export const styles = StyleSheet.create({
       alignSelf: 'center',
       paddingBottom: 20
   },
+  container: {
+    flex: 1,
+    flexWrap: 'wrap',
+    flexDirection:'row',
+    alignContent: 'flex-start',
+    alignSelf: 'center'
+  },
   spaced: {
     alignSelf: 'center'
+  },
+  box : {
+    width: 100,
+    height: 125
   },
   modalContainer: {
       flex: 1,
