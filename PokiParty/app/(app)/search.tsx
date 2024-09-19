@@ -10,7 +10,7 @@ import { ThemedView } from '@/components/ThemedView';
 import { useSession } from '../../utils/DataContext';
 import AddOrRemoveButton from '@/components/AddOrRemoveButton';
 // Basic style sheet
-// import { styles } from '@/assets/styles/searchPageStyleSheet';
+import { styles } from '@/assets/styles/searchPageStyleSheet';
 
 export default function Search() {
     const [searchBool, setSearchBool] = useState(false);

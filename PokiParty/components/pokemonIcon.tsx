@@ -47,7 +47,7 @@ export function PokeIcon ({ id } : pokemonData ) {
 
             <Image
             source={require('./../assets/images/plushSubsitute.jpg')}
-            style={{width: 40, height: 40}}
+            style={{width: 200, height: 200}}
             />
 
         </Pressable>

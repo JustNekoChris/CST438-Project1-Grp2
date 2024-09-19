@@ -51,6 +51,7 @@ export default function UserParties() {
       const result: string = await PokiPartyModule.insertNewTeam(email, teamName);
       console.log('Insert team result:', result);
       setTeams(await fetchTeams(email!)); // Fetch teams after inserting a new one
+      setTeamIndex(teamIndex + 1);
     } catch (error) {
       console.error('Error inserting team:', error);
     }
@@ -70,6 +71,7 @@ export default function UserParties() {
       await PokiPartyModule.deleteTeam(teamId);
   
       // Refresh the list after deletion
+      setTeamIndex(teamIndex - 1);
       setTeams(await fetchTeams(email!));
     } catch (error) {
       console.error('Error deleting team member:', error);
@@ -128,7 +130,7 @@ export default function UserParties() {
 
           <View style={styles.footer}>
             <Button color={'#660f22'} title='Delete Team' onPress={() => deleteTeam()} />
-            <Button color={'#44db9f'} title='New Team' onPress={() => console.log('Trying to create new team')} />
+            <Button color={'#44db9f'} title='New Team' onPress={() => insertNewTeam()} />
           </View>
     
         </View>
