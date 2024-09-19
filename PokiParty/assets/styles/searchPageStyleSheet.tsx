@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
       paddingBottom: 20
   },
   spaced: {
-      padding: 10
+    alignSelf: 'center'
   },
   modalContainer: {
       flex: 1,

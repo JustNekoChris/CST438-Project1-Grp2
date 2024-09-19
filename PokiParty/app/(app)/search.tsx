@@ -48,6 +48,7 @@ export default function Search() {
         let url = `https://pokeapi.co/api/v2/type/${type}/`
         let response = await fetch(url);
         let data = await response.json();
+        // console.log(data);
         setPokemonTypeData(data);
         setPokemonData(null);
         setModalData(null);
@@ -57,9 +58,34 @@ export default function Search() {
         let url = `https://pokeapi.co/api/v2/pokemon/${type}/`
         let response = await fetch(url);
         let data = await response.json();
-        console.log(data);
+        // console.log(data);
         setModalData(data);
         setPokemonData(null);
+    }
+
+    /* 
+    * 
+    * This function 'strips' another url, in order to find the location to the sprite using another repo
+    *  
+    * Base url : https://pokeapi.co/api/v2/pokemon/ {some number or whatnot} /
+    * Returns : https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{some number or whatnot}.png
+    * 
+    * It returns an image link than can be displayed after using: uri:
+    * 
+    */
+    const uriUrl = (s : string) =>{
+
+        let portion = "";
+
+        let start = 34;
+        let count = start;
+
+        while (s[count] != "/") {
+            portion += s[count];
+            count++;
+        }
+
+        return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + portion + '.png';
     }
 
     return (
@@ -126,6 +152,10 @@ export default function Search() {
                     {
                         pokemonTypeData?.pokemon?.map((pokemonEntry, index) => (
                             <TouchableOpacity key={index} onPress={() =>  handlePress(pokemonEntry.pokemon.name)}>
+                                <Image
+                                    source={{uri:uriUrl(pokemonEntry.pokemon.url)}}
+                                    style={{width: 100, height: 100}}
+                                />
                                 <ThemedText style={styles.spaced}>{pokemonEntry.pokemon.name}</ThemedText>
                             </TouchableOpacity>
                         ))
