@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { BasicBackButton } from '@/components/navigation/BackButton';
 import { StyleSheet, View, TextInput, Image, Modal, Button, TouchableOpacity } from 'react-native';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -9,14 +10,13 @@ import { ThemedView } from '@/components/ThemedView';
 export default function Search() {
     const [searchBool, setSearchBool] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+    const [modalData, setModalData] = useState(null);
     const [pokemonData, setPokemonData] = useState(null);
     const [pokemonTypeData, setPokemonTypeData] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
-    const [selectedPokemon, setSelectedPokemon] = useState('');
 
     const handlePress = async (pokemonName : string) => {
-        searchByName(pokemonName);
-        setSelectedPokemon(pokemonName);
+        getModalData(pokemonName);
         setModalVisible(true);
     };
     
@@ -36,20 +36,27 @@ export default function Search() {
         let url = `https://pokeapi.co/api/v2/pokemon/${pokemon}/`
         let response = await fetch(url);
         let data = await response.json();
-        console.log(data);
         setPokemonData(data);
+        setPokemonTypeData(null);
+        setModalData(null)
     }
 
     const searchByType = async (type : string) => {
         let url = `https://pokeapi.co/api/v2/type/${type}/`
         let response = await fetch(url);
         let data = await response.json();
-        console.log(data);
         setPokemonTypeData(data);
+        setPokemonData(null);
+        setModalData(null);
     }
 
-    const printf = () => {
-        console.log("glizzyy");
+    const getModalData = async (type : string) => {
+        let url = `https://pokeapi.co/api/v2/pokemon/${type}/`
+        let response = await fetch(url);
+        let data = await response.json();
+        console.log(data);
+        setModalData(data);
+        setPokemonData(null);
     }
 
     return (
@@ -75,22 +82,13 @@ export default function Search() {
                 </View>
             </View>
 
-            {/* <View style={styles.searchContainer}>
-                <TextInput
-                    style={styles.searchInput}
-                    placeholder={searchBool ? 'fairy' : 'squirtle'}
-                    value={searchQuery}
-                    onChangeText={setSearchQuery}
-                />
-                <Button title="Search" onPress={() => onSearch(searchQuery)} />
-            </View> */}
-
             <View style={styles.buttonContainer}>
                 <Button 
                     title={searchBool ? 'Search By Name' : 'Search By Type'} 
                     onPress={toggleText}/>
             </View>
 
+            {/* Search Result */}
             {!pokemonData ? (
                 <ThemedText></ThemedText>
             ) : (
@@ -117,7 +115,7 @@ export default function Search() {
                 </View>
             )}   
 
-            {/* Render Pokemon Type data when searching by type */}
+            {/* Search by Type results */}
             {!pokemonTypeData ? (
                 <ThemedText></ThemedText>
             ) : (
@@ -139,37 +137,43 @@ export default function Search() {
                         setModalVisible(!modalVisible);
                         }}
                     >
-                        <View style={styles.modalContainer}>
-                            <View style={styles.modalContent}>
-                                <ThemedText style={styles.modalText}>You selected {selectedPokemon}!</ThemedText>
-                                <View>
-                                    <View style={styles.center}>
-                                        <ThemedText>{pokemonData["name"]}</ThemedText>
-                                        <Image 
-                                        source={{ uri : pokemonData["sprites"]["front_default"]}}
-                                        style={{width : 200, height : 200}}
-                                        />
-                                        <ThemedText> Height: {pokemonData["height"]}</ThemedText>
+                        {!modalData ? (
+                            <ThemedText></ThemedText>
+                        ) : (
+                            <View style={styles.modalContainer}>
+                                <View style={styles.modalContent}>
+                                    <View>
+                                        <View style={styles.center}>
+                                            <ThemedText>{modalData["name"]}</ThemedText>
+                                            <Image 
+                                            source={{ uri : modalData["sprites"]["front_default"]}}
+                                            style={{width : 200, height : 200}}
+                                            />
+                                            <ThemedText> Height: {modalData["height"]}</ThemedText>
+                                        </View>
+                                        <ThemedText style={styles.center} type="title">Base Stats</ThemedText>
+                                        <View style={styles.rows}>
+                                            <ThemedText style={styles.statColumns}> {modalData["stats"][0]["stat"]['name']} : {modalData["stats"][0]["base_stat"]} </ThemedText>
+                                            <ThemedText style={styles.statColumns}> {modalData["stats"][1]["stat"]['name']} : {modalData["stats"][1]["base_stat"]} </ThemedText>
+                                            <ThemedText style={styles.statColumns}> {modalData["stats"][2]["stat"]['name']} : {modalData["stats"][2]["base_stat"]} </ThemedText>
+                                        </View>
+                                        <View style={styles.rows}>
+                                            <ThemedText style={styles.statColumns}> {modalData["stats"][3]["stat"]['name']} : {modalData["stats"][3]["base_stat"]} </ThemedText>
+                                            <ThemedText style={styles.statColumns}> {modalData["stats"][4]["stat"]['name']} : {modalData["stats"][4]["base_stat"]} </ThemedText>
+                                            <ThemedText style={styles.statColumns}> {modalData["stats"][5]["stat"]['name']} : {modalData["stats"][5]["base_stat"]} </ThemedText>
+                                        </View>
                                     </View>
-                                    <ThemedText style={styles.center} type="title">Base Stats</ThemedText>
-                                    <View style={styles.rows}>
-                                        <ThemedText style={styles.statColumns}> {pokemonData["stats"][0]["stat"]['name']} : {pokemonData["stats"][0]["base_stat"]} </ThemedText>
-                                        <ThemedText style={styles.statColumns}> {pokemonData["stats"][1]["stat"]['name']} : {pokemonData["stats"][1]["base_stat"]} </ThemedText>
-                                        <ThemedText style={styles.statColumns}> {pokemonData["stats"][2]["stat"]['name']} : {pokemonData["stats"][2]["base_stat"]} </ThemedText>
-                                    </View>
-                                    <View style={styles.rows}>
-                                        <ThemedText style={styles.statColumns}> {pokemonData["stats"][3]["stat"]['name']} : {pokemonData["stats"][3]["base_stat"]} </ThemedText>
-                                        <ThemedText style={styles.statColumns}> {pokemonData["stats"][4]["stat"]['name']} : {pokemonData["stats"][4]["base_stat"]} </ThemedText>
-                                        <ThemedText style={styles.statColumns}> {pokemonData["stats"][5]["stat"]['name']} : {pokemonData["stats"][5]["base_stat"]} </ThemedText>
-                                    </View>
+                                    <Button title="Back" onPress={() => setModalVisible(false)} />
                                 </View>
-                                <Button title="Back" onPress={() => setModalVisible(false)} />
                             </View>
-                        </View>
+                        )}
                     </Modal>
                 </View>
             )}    
-        </ParallaxScrollView>  
+            <View style={styles.center}>
+                <BasicBackButton/>  
+            </View>
+        </ParallaxScrollView>
     );
 };
 
@@ -238,5 +242,5 @@ const styles = StyleSheet.create({
     modalText: {
         fontSize: 18,
         marginBottom: 15,
-    }
+    },
 });
