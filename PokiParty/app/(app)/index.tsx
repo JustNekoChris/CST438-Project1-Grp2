@@ -30,7 +30,7 @@ export default function Index() {
         title="Pokedex"
         color = {'#bf0d0a'}
         onPress={() => {
-          router.push('./search');
+          router.push('./pokedex');
         }}
       ></Button>
       <Button
