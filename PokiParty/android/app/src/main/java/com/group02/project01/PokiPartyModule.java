@@ -119,10 +119,10 @@ public class PokiPartyModule extends ReactContextBaseJavaModule {
 
     // Method to check if a pokemon with userInfo and pokeID exists
     @ReactMethod
-    public void checkExistspokemon(String userInfo, String pokename, Promise promise) {
+    public void checkExistspokemon(String userInfo, Double pokeID, Promise promise) {
         new Thread(() -> {
             try {
-                boolean exists = db.team().exists(userInfo, pokename);
+                boolean exists = db.pokemon().exists(userInfo, pokeID);
                 promise.resolve(exists);
             } catch (Exception e) {
                 promise.reject("Error checking if exists", e);
@@ -132,14 +132,27 @@ public class PokiPartyModule extends ReactContextBaseJavaModule {
 
     // Method to insert a pokemon
     @ReactMethod
-    public void insertPokemon(String userInfo, String pokeName, String imageURL, Promise promise) {
+    public void insertPokemon(String userInfo, Double pokeID, String pokeName, String imageURL, Promise promise) {
         new Thread(() -> {
             try {
-                Pokemon pokemon = new Pokemon(userInfo, pokeName, imageURL);
+                Pokemon pokemon = new Pokemon(userInfo, pokeID, pokeName, imageURL);
                 db.pokemon().add(pokemon);
                 promise.resolve("Pokemon inserted successfully");
             } catch (Exception e) {
                 promise.reject("Error inserting pokemon", e);
+            }
+        }).start();
+    }
+
+    // Method to delete a pokemon
+    @ReactMethod
+    public void deletePokemon(String userInfo, Double pokemonId, Promise promise) {
+        new Thread(() -> {
+            try {
+                db.pokemon().deleteByPokeIDAndUserInfo(userInfo, pokemonId);
+                promise.resolve("Pokemon deleted successfully");
+            } catch (Exception e) {
+                promise.reject("Error deleting pokemon", e);
             }
         }).start();
     }

@@ -15,17 +15,23 @@ public class Pokemon {
     @ColumnInfo(name = "userInfo")
     private String userInfo;
 
+    @ColumnInfo(name = "pokeID")
+    private Double pokeID;
+
     @ColumnInfo(name = "pokeName")
     private String pokeName;
 
     @ColumnInfo(name = "imageURL")
     private String imageURL;
 
-    public Pokemon(String userInfo, String pokeName, String imageURL) {
+    public Pokemon(String userInfo, Double pokeID, String pokeName, String imageURL) {
         this.userInfo = userInfo;
+        this.pokeID = pokeID;
         this.pokeName = pokeName;
         this.imageURL = imageURL;
     }
+
+    public Pokemon() {}
 
     public int getId() {
         return id;
@@ -41,6 +47,14 @@ public class Pokemon {
 
     public void setUserInfo(String userInfo) {
         this.userInfo = userInfo;
+    }
+
+    public Double getPokeID() {
+        return pokeID;
+    }
+
+    public void setPokeID(Double pokeID) {
+        this.pokeID = pokeID;
     }
 
     public String getPokeName() {
@@ -64,11 +78,11 @@ public class Pokemon {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pokemon pokemon = (Pokemon) o;
-        return Objects.equals(getUserInfo(), pokemon.getUserInfo()) && Objects.equals(getPokeName(), pokemon.getPokeName());
+        return Objects.equals(getUserInfo(), pokemon.getUserInfo()) && Objects.equals(getPokeID(), pokemon.getPokeID());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUserInfo(), getPokeName());
+        return Objects.hash(getUserInfo(), getPokeID());
     }
 }

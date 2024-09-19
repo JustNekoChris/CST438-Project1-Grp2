@@ -11,6 +11,8 @@ import { NativeModules } from 'react-native';
 const { PokiPartyModule } = NativeModules;
 
 import { useSession } from '../../utils/DataContext';
+import { Double } from 'react-native/Libraries/Types/CodegenTypes';
+import AddOrRemoveButton from '@/components/AddOrRemoveButton';
 
 export default function Search() {
     const [searchBool, setSearchBool] = useState(false);
@@ -22,7 +24,7 @@ export default function Search() {
     const {email} = useSession();
 
     const handlePress = async (pokemonName : string) => {
-        getModalData(pokemonName);
+        await getModalData(pokemonName);
         setModalVisible(true);
     };
     
@@ -60,15 +62,15 @@ export default function Search() {
         let url = `https://pokeapi.co/api/v2/pokemon/${type}/`
         let response = await fetch(url);
         let data = await response.json();
-        console.log(data);
+        console.log(data["name"]);
         setModalData(data);
         setPokemonData(null);
     }
 
-    const addPokemonToPC = async (pokemon : string, imageURL: string) => {
+    const addPokemonToPC = async (pokeID: Double, pokeName : string, imageURL: string) => {
         try {
-            await PokiPartyModule.insertPokemon(email, pokemon, imageURL);
-            console.log('Added pokemon:', pokemon);
+            await PokiPartyModule.insertPokemon(email, pokeID, pokeName, imageURL);
+            console.log('Added pokemon:', pokeName);
         } catch (error) {
             console.error('Error adding pokemon:', error);
         }
@@ -127,6 +129,11 @@ export default function Search() {
                         <ThemedText style={styles.statColumns}> {pokemonData["stats"][4]["stat"]['name']} : {pokemonData["stats"][4]["base_stat"]} </ThemedText>
                         <ThemedText style={styles.statColumns}> {pokemonData["stats"][5]["stat"]['name']} : {pokemonData["stats"][5]["base_stat"]} </ThemedText>
                     </View>
+                    <View style={styles.center}>
+                        {/* new button that changes whther pokemon exists for user or not */}
+                        <AddOrRemoveButton pokeID={pokemonData["id"]}/>
+                        {/* <Button title='Add to Team' onPress={() => addPokemonToPC(pokemonData["id"], pokemonData["name"], pokemonData["sprites"]["front_default"])} /> */}
+                    </View>
                 </View>
             )}   
 
@@ -180,7 +187,8 @@ export default function Search() {
                                     </View>
                                     <View style={styles.center, styles.rows}>
                                         <Button title="Back" onPress={() => setModalVisible(false)} />
-                                        <Button title='Add to Team' onPress={() => addPokemonToPC(modalData["name"], modalData["sprites"]["front_default"])} />
+                                        <AddOrRemoveButton pokeID={modalData["id"]}/>
+                                        {/* <Button title='Add to Team' onPress={() => addPokemonToPC(modalData["id"], modalData["name"], modalData["sprites"]["front_default"])} /> */}
                                     </View>
                                 </View>
                             </View>
