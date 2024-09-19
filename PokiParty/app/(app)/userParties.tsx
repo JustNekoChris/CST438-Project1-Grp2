@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, Alert, TextInput } from 'react-native';
-import { NativeModules } from 'react-native';
 import { PokemonParty } from '@/components/PokemonParty';
 import { fetchTeams, Party } from '@/functions/FetchTeams';
 import { useSession } from '@/utils/DataContext';
@@ -11,6 +10,7 @@ import { styles } from '../../assets/styles/mainStyleSheet';
 // Other common assets
 import { BasicBackButton } from '@/components/navigation/BackButton';
 
+import { NativeModules } from 'react-native';
 const { PokiPartyModule } = NativeModules;
 
 export default function UserParties() {

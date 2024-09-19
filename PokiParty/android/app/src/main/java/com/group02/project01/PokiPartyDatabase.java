@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Team.class, Pokemon.class}, version = 1, exportSchema = false)
+@Database(entities = {Team.class, Pokemon.class}, version = 4, exportSchema = false)
 public abstract class PokiPartyDatabase extends RoomDatabase {
     public abstract TeamDAO team();
     public abstract PokemonDAO pokemon();

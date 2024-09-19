@@ -18,7 +18,7 @@ export default function pokedex() {
     <View style={styles.container}>
 
       < PokeIcon 
-          id={123}
+          id={160}
       />
       < BasicBackButton/>
 

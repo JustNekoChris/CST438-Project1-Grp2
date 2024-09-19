@@ -24,6 +24,7 @@ export const styles = StyleSheet.create({
   },
   itemText: {
     fontSize: 16,
+    textAlign: 'center',
   },
   input: {
     height: 40,

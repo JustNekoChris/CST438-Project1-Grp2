@@ -113,6 +113,7 @@ public class PokiPartyModule extends ReactContextBaseJavaModule {
         }).start();
     }
 
+    // method to delete a team member
     @ReactMethod
     public void deleteTeam(int teamId, Promise promise) {
         new Thread(() -> {
@@ -126,6 +127,7 @@ public class PokiPartyModule extends ReactContextBaseJavaModule {
         }).start();
     }
 
+    // Method to check if a team exists for a specific user
     @ReactMethod
     public void checkExists(String userInfo, String teamName, Promise promise) {
         new Thread(() -> {
@@ -134,6 +136,77 @@ public class PokiPartyModule extends ReactContextBaseJavaModule {
                 promise.resolve(exists);
             } catch (Exception e) {
                 promise.reject("Error checking if exists", e);
+            }
+        }).start();
+    }
+
+    // Method to get all pokemon
+    @ReactMethod
+    public void getAllPokemon(Promise promise) {
+        new Thread(() -> {
+            try {
+                List<Pokemon> pokemons = db.pokemon().getAll();
+                Type listTypePokemon = new TypeToken<List<Pokemon>>() {}.getType();
+                String json = gson.toJson(pokemons, listTypePokemon); // Convert list to JSON
+                promise.resolve(json); // Return JSON string to JS
+            } catch (Exception e) {
+                promise.reject("Error fetching pokemons", e);
+            }
+        }).start();
+    }
+
+    // Method to get all Pokemon by user info
+    @ReactMethod
+    public void getPokemonByUserInfo(String userInfo, Promise promise) {
+        new Thread(() -> {
+            try {
+                System.out.println(userInfo);
+                List<Pokemon> pokemon = db.pokemon().getAllByUserInfo(userInfo);
+                Type listTypePokemon = new TypeToken<List<Pokemon>>() {}.getType();
+                String json = gson.toJson(pokemon, listTypePokemon); // Convert list to JSON
+                promise.resolve(json); // Return JSON string to JS
+            } catch (Exception e) {
+                promise.reject("Error fetching teams", e);
+            }
+        }).start();
+    }
+
+    // Method to check if a pokemon with userInfo and pokeID exists
+    @ReactMethod
+    public void checkExistspokemon(String userInfo, Double pokeID, Promise promise) {
+        new Thread(() -> {
+            try {
+                boolean exists = db.pokemon().exists(userInfo, pokeID);
+                promise.resolve(exists);
+            } catch (Exception e) {
+                promise.reject("Error checking if exists", e);
+            }
+        }).start();
+    }
+
+    // Method to insert a pokemon
+    @ReactMethod
+    public void insertPokemon(String userInfo, Double pokeID, String pokeName, String imageURL, Promise promise) {
+        new Thread(() -> {
+            try {
+                Pokemon pokemon = new Pokemon(userInfo, pokeID, pokeName, imageURL);
+                db.pokemon().add(pokemon);
+                promise.resolve("Pokemon inserted successfully");
+            } catch (Exception e) {
+                promise.reject("Error inserting pokemon", e);
+            }
+        }).start();
+    }
+
+    // Method to delete a pokemon
+    @ReactMethod
+    public void deletePokemon(String userInfo, Double pokemonId, Promise promise) {
+        new Thread(() -> {
+            try {
+                db.pokemon().deleteByPokeIDAndUserInfo(userInfo, pokemonId);
+                promise.resolve("Pokemon deleted successfully");
+            } catch (Exception e) {
+                promise.reject("Error deleting pokemon", e);
             }
         }).start();
     }

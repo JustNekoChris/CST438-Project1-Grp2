@@ -34,7 +34,8 @@ export default function Index (){
       const userInfo = await GoogleSignin.signIn();
 
       if (userInfo.data !== null && userInfo.data.idToken !== null) {
-        signIn(userInfo.data.idToken);
+        signIn(userInfo.data.idToken, userInfo.data.user.email);
+        console.log(userInfo);
       } else {
         throw new Error('Userinfo returned null from Google SignIn');
       }
