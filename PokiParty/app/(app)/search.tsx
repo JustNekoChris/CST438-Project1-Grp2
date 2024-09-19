@@ -1,17 +1,15 @@
 import { useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { BasicBackButton } from '@/components/navigation/BackButton';
-import { StyleSheet, View, TextInput, Image, Modal, Button, TouchableOpacity } from 'react-native';
-import { StyleSheet, View, TextInput, Image, Modal, Button, TouchableOpacity } from 'react-native';
+import { View, TextInput, Image, Modal, Button, TouchableOpacity, ImageBackground } from 'react-native';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
-import { NativeModules } from 'react-native';
-const { PokiPartyModule } = NativeModules;
-
-import { useSession } from '../../utils/DataContext';
+import AddOrRemoveButton from '@/components/AddOrRemoveButton';
+// Basic style sheet
+import { styles } from '@/assets/styles/searchPageStyleSheet';
 
 export default function Search() {
     const [searchBool, setSearchBool] = useState(false);
@@ -20,10 +18,9 @@ export default function Search() {
     const [pokemonData, setPokemonData] = useState(null);
     const [pokemonTypeData, setPokemonTypeData] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
-    const {email} = useSession();
 
     const handlePress = async (pokemonName : string) => {
-        getModalData(pokemonName);
+        await getModalData(pokemonName);
         setModalVisible(true);
     };
     
@@ -61,18 +58,34 @@ export default function Search() {
         let url = `https://pokeapi.co/api/v2/pokemon/${type}/`
         let response = await fetch(url);
         let data = await response.json();
-        console.log(data);
+        // console.log(data);
         setModalData(data);
         setPokemonData(null);
     }
 
-    const addPokemonToPC = async (pokemon : string, imageURL: string) => {
-        try {
-            await PokiPartyModule.insertPokemon(email, pokemon, imageURL);
-            console.log('Added pokemon:', pokemon);
-        } catch (error) {
-            console.error('Error adding pokemon:', error);
+    /* 
+    * 
+    * This function 'strips' another url, in order to find the location to the sprite using another repo
+    *  
+    * Base url : https://pokeapi.co/api/v2/pokemon/ {some number or whatnot} /
+    * Returns : https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{some number or whatnot}.png
+    * 
+    * It returns an image link than can be displayed after using: uri:
+    * 
+    */
+    const uriUrl = (s : string) =>{
+
+        let portion = "";
+
+        let start = 34;
+        let count = start;
+
+        while (s[count] != "/") {
+            portion += s[count];
+            count++;
         }
+
+        return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + portion + '.png';
     }
 
     return (
@@ -128,6 +141,11 @@ export default function Search() {
                         <ThemedText style={styles.statColumns}> {pokemonData["stats"][4]["stat"]['name']} : {pokemonData["stats"][4]["base_stat"]} </ThemedText>
                         <ThemedText style={styles.statColumns}> {pokemonData["stats"][5]["stat"]['name']} : {pokemonData["stats"][5]["base_stat"]} </ThemedText>
                     </View>
+                    <View style={styles.center}>
+                        {/* new button that changes whther pokemon exists for user or not */}
+                        <AddOrRemoveButton pokeID={pokemonData["id"]}/>
+                        {/* <Button title='Add to Team' onPress={() => addPokemonToPC(pokemonData["id"], pokemonData["name"], pokemonData["sprites"]["front_default"])} /> */}
+                    </View>
                 </View>
             )}   
 
@@ -135,11 +153,28 @@ export default function Search() {
             {!pokemonTypeData ? (
                 <ThemedText></ThemedText>
             ) : (
-                <View style={styles.center}>
+                <View style={styles.container}>
                     {
                         pokemonTypeData?.pokemon?.map((pokemonEntry, index) => (
                             <TouchableOpacity key={index} onPress={() =>  handlePress(pokemonEntry.pokemon.name)}>
-                                <ThemedText style={styles.spaced}>{pokemonEntry.pokemon.name}</ThemedText>
+
+                                {/* Nested view in order to properly style the pokemon icons */}
+                                <View style={styles.box}>
+                                    {/* Image Background Documentation: https://reactnative.dev/docs/imagebackground */}
+                                    <ImageBackground 
+                                        source={require('./../../assets/images/blackCircle.png')}
+                                        imageStyle={styles.boxedBackgroundImage}>
+                                        
+                                        {/* Attempted to use the plush as a failsafe, but it isn't working atm */}
+                                        {/* Will put a fix in the uriUrl function */}
+
+                                        <Image
+                                            source={{uri:uriUrl(pokemonEntry.pokemon.url)}}
+                                            defaultSource={require('./../../assets/images/plushSubsitute.jpg')}
+                                            style={styles.boxedImage}
+                                        />
+                                    </ImageBackground>
+                                </View>
                             </TouchableOpacity>
                         ))
                     }
@@ -181,7 +216,8 @@ export default function Search() {
                                     </View>
                                     <View style={styles.center, styles.rows}>
                                         <Button title="Back" onPress={() => setModalVisible(false)} />
-                                        <Button title='Add to Team' onPress={() => addPokemonToPC(modalData["name"], modalData["sprites"]["front_default"])} />
+                                        <AddOrRemoveButton pokeID={modalData["id"]}/>
+                                        {/* <Button title='Add to Team' onPress={() => addPokemonToPC(modalData["id"], modalData["name"], modalData["sprites"]["front_default"])} /> */}
                                     </View>
                                 </View>
                             </View>
@@ -195,71 +231,3 @@ export default function Search() {
         </ParallaxScrollView>
     );
 };
-
-const styles = StyleSheet.create({
-    headerImage: {
-      color: '#808080',
-      bottom: -90,
-      left: -35,
-      position: 'absolute',
-    },
-    titleContainer: {
-      flexDirection: 'row',
-      gap: 8,
-    },
-    buttonContainer: {
-        alignItems: 'center',
-        width: '100%'
-    },
-    searchInput: {
-        flex: 1,
-        marginLeft: 8,
-        fontSize: 16,
-    },
-    statColumns: {
-        flexDirection : 'column',
-        alignItems: 'center',
-        alignSelf: 'center',
-        margin: 5
-    },
-    search: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        alignSelf: 'center',
-        backgroundColor: '#F0F0F0',
-        borderRadius: 10,
-        paddingHorizontal: 10,
-        paddingVertical: 5,
-        marginVertical: 10,
-    },
-    rows: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        alignSelf: 'center'
-    },
-    center: {
-        alignItems: 'center',
-        alignSelf: 'center',
-        paddingBottom: 20
-    },
-    spaced: {
-        padding: 10
-    },
-    modalContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
-    },
-    modalContent: {
-        backgroundColor: 'white',
-        padding: 20,
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    modalText: {
-        fontSize: 18,
-        marginBottom: 15,
-    },
-});
