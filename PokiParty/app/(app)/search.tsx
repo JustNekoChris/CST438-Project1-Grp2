@@ -10,7 +10,7 @@ import { ThemedView } from '@/components/ThemedView';
 import { useSession } from '../../utils/DataContext';
 import AddOrRemoveButton from '@/components/AddOrRemoveButton';
 // Basic style sheet
-import { styles } from '@/assets/styles/searchPageStyleSheet';
+// import { styles } from '@/assets/styles/searchPageStyleSheet';
 
 export default function Search() {
     const [searchBool, setSearchBool] = useState(false);
@@ -19,7 +19,6 @@ export default function Search() {
     const [pokemonData, setPokemonData] = useState(null);
     const [pokemonTypeData, setPokemonTypeData] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
-    const {email} = useSession();
 
     const handlePress = async (pokemonName : string) => {
         await getModalData(pokemonName);
