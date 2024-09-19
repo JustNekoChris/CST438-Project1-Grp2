@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.lang.Exception;
 import java.util.List;
 
 public class PokiPartyModule extends ReactContextBaseJavaModule {
@@ -28,12 +29,11 @@ public class PokiPartyModule extends ReactContextBaseJavaModule {
         return "PokiPartyModule";  // This name will be used in JavaScript
     }
 
-    // Example of inserting a team
     @ReactMethod
-    public void insertTeam(String userInfo, String teamName, String pokeID1, String pokeID2, String pokeID3, String pokeID4, String pokeID5, String pokeID6, Promise promise) {
+    public void insertNewTeam(String userInfo, String teamName, Promise promise) {
         new Thread(() -> {
             try {
-                Team team = new Team(userInfo, teamName, pokeID1, pokeID2, pokeID3, pokeID4, pokeID5, pokeID6);
+                Team team = new Team(userInfo, teamName);
                 db.team().add(team);
                 promise.resolve("Team inserted successfully");
             } catch (Exception e) {
@@ -42,7 +42,43 @@ public class PokiPartyModule extends ReactContextBaseJavaModule {
         }).start();
     }
 
-
+    /**
+     * Method for removing a pokemon from a team
+     * @param teamId ID of team
+     * @param index 0 indexed spot to remove pokemon from
+     * @param promise
+     */
+    @ReactMethod
+    public void removeTeamMember(int teamId, int index, Promise promise) {
+        new Thread(() -> {
+            try {
+                Team team = db.team().getById(teamId);
+                team.removePokemon(index);
+                promise.resolve("Team member removed successfully");
+            } catch (Exception e) {
+                promise.reject("Error removing team member", e);
+            }
+        }).start();
+    }
+    
+    /**
+     * Method for adding a pokemon to an existing team
+     * @param teamId ID of team
+     * @param pokeId ID of pokemon to insert
+     * @param promise
+     */
+    @ReactMethod
+    public void addTeamMember(int teamId, String pokeId, Promise promise) {
+        new Thread(() -> {
+            try {
+                Team team = db.team().getById(teamId);
+                Integer returnCode = team.addPokemon(pokeId);
+                promise.resolve(returnCode);
+            } catch (Exception e) {
+                promise.reject("Error adding team member", e);
+            }
+        }).start();
+    }
 
     // Example of querying all teams
     @ReactMethod
@@ -58,17 +94,35 @@ public class PokiPartyModule extends ReactContextBaseJavaModule {
             }
         }).start();
     }
+    
+    /**
+     * Returns all teams based on userInfo
+     * @param promise
+     */
+    @ReactMethod
+    public void getAllTeamsByUserInfo(String userInfo, Promise promise) {
+        new Thread(() -> {
+            try {
+                List<Team> teams = db.team().getAllByUserInfo(userInfo);
+                Type listType = new TypeToken<List<Team>>() {}.getType();
+                String json = gson.toJson(teams, listType); // Convert list to JSON
+                promise.resolve(json); // Return JSON string to JS
+            } catch (Exception e) {
+                promise.reject("Error fetching teams", e);
+            }
+        }).start();
+    }
 
     // method to delete a team member
     @ReactMethod
-    public void deleteTeamMember(int teamId, Promise promise) {
+    public void deleteTeam(int teamId, Promise promise) {
         new Thread(() -> {
             try {
                 // Implement the logic to delete the team member from the database
                 db.team().deleteById(teamId);
-                promise.resolve("Team member deleted successfully");
+                promise.resolve("Team deleted successfully");
             } catch (Exception e) {
-                promise.reject("Error deleting team member", e);
+                promise.reject("Error deleting team", e);
             }
         }).start();
     }
