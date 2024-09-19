@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.lang.Exception;
 import java.util.List;
 
 public class PokiPartyModule extends ReactContextBaseJavaModule {
@@ -28,12 +29,11 @@ public class PokiPartyModule extends ReactContextBaseJavaModule {
         return "PokiPartyModule";  // This name will be used in JavaScript
     }
 
-    // Example of inserting a team
     @ReactMethod
-    public void insertTeam(String userInfo, String teamName, String pokeID1, String pokeID2, String pokeID3, String pokeID4, String pokeID5, String pokeID6, Promise promise) {
+    public void insertNewTeam(String userInfo, String teamName, Promise promise) {
         new Thread(() -> {
             try {
-                Team team = new Team(userInfo, teamName, pokeID1, pokeID2, pokeID3, pokeID4, pokeID5, pokeID6);
+                Team team = new Team(userInfo, teamName);
                 db.team().add(team);
                 promise.resolve("Team inserted successfully");
             } catch (Exception e) {
@@ -73,10 +73,7 @@ public class PokiPartyModule extends ReactContextBaseJavaModule {
             try {
                 Team team = db.team().getById(teamId);
                 Integer returnCode = team.addPokemon(pokeId);
-                if (returnCode.equals(1)) {
-                    throw Exception("Team is full");
-                }
-                promise.resolve("Team member added successfully");
+                promise.resolve(returnCode);
             } catch (Exception e) {
                 promise.reject("Error adding team member", e);
             }
@@ -89,6 +86,24 @@ public class PokiPartyModule extends ReactContextBaseJavaModule {
         new Thread(() -> {
             try {
                 List<Team> teams = db.team().getAll();
+                Type listType = new TypeToken<List<Team>>() {}.getType();
+                String json = gson.toJson(teams, listType); // Convert list to JSON
+                promise.resolve(json); // Return JSON string to JS
+            } catch (Exception e) {
+                promise.reject("Error fetching teams", e);
+            }
+        }).start();
+    }
+    
+    /**
+     * Returns all teams based on userInfo
+     * @param promise
+     */
+    @ReactMethod
+    public void getAllTeamsByUserInfo(String userInfo, Promise promise) {
+        new Thread(() -> {
+            try {
+                List<Team> teams = db.team().getAllByUserInfo(userInfo);
                 Type listType = new TypeToken<List<Team>>() {}.getType();
                 String json = gson.toJson(teams, listType); // Convert list to JSON
                 promise.resolve(json); // Return JSON string to JS

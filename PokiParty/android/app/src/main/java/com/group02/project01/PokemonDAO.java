@@ -20,10 +20,10 @@ public interface PokemonDAO {
     void update(Pokemon p);
 
     @Query("SELECT * FROM Pokemon")
-    List<Team> getAll();
+    List<Pokemon> getAll();
 
     @Query("SELECT * FROM Pokemon WHERE userInfo = :userInfo")
-    List<Team> getAllByUserInfo(String userInfo);
+    List<Pokemon> getAllByUserInfo(String userInfo);
 
     // New method to check if a pokemon with userInfo and pokeID exists
     @Query("SELECT EXISTS(SELECT 1 FROM Pokemon WHERE userInfo = :userInfo AND pokeID = :pokeID)")

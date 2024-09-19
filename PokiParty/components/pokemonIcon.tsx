@@ -34,7 +34,7 @@ export function PokeIcon ({ id } : pokemonData ) {
         
             <Image
             source={{uri:'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png'}}
-            style={{width: 400, height: 400}}
+            style={{width: 200, height: 200}}
             />
     
         </Pressable>
@@ -47,7 +47,7 @@ export function PokeIcon ({ id } : pokemonData ) {
 
             <Image
             source={require('./../assets/images/plushSubsitute.jpg')}
-            style={{width: 400, height: 400}}
+            style={{width: 200, height: 200}}
             />
 
         </Pressable>

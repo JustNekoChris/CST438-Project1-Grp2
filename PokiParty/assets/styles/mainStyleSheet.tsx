@@ -31,6 +31,32 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
   },
+  column: {
+    flex: 1,
+    margin: 5,
+  },
+  columns: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  header: {
+    height: 50,
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#f8f8f8',
+    marginTop: 50,
+    marginBottom: 10,
+  },
+  footer: {
+    height: 50,
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 'auto',
+  },
   Button: {
     color : '#bf0d0a'
   }
