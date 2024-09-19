@@ -53,14 +53,28 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection:'row',
     alignContent: 'flex-start',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    justifyContent: 'center'
   },
   spaced: {
     alignSelf: 'center'
   },
   box : {
     width: 100,
-    height: 125
+    height: 125,
+    margin: 4, 
+    justifyContent: 'center'
+  },
+  boxedImage : {
+    width: 100, 
+    height: 100
+  },
+  boxedBackgroundImage : {
+    alignSelf: 'center',
+    flex: 1,
+    width: 80,
+    height: 80,
+    opacity: 0.25
   },
   modalContainer: {
       flex: 1,

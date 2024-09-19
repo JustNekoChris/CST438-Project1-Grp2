@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { BasicBackButton } from '@/components/navigation/BackButton';
-import { StyleSheet, View, TextInput, Image, Modal, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TextInput, Image, Modal, Button, TouchableOpacity, ImageBackground } from 'react-native';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
@@ -151,12 +151,23 @@ export default function Search() {
                     {
                         pokemonTypeData?.pokemon?.map((pokemonEntry, index) => (
                             <TouchableOpacity key={index} onPress={() =>  handlePress(pokemonEntry.pokemon.name)}>
+
+                                {/* Nested view in order to properly style the pokemon icons */}
                                 <View style={styles.box}>
-                                    <Image
-                                        source={{uri:uriUrl(pokemonEntry.pokemon.url)}}
-                                        style={{width: 100, height: 100}}
-                                    />
-                                    <ThemedText style={styles.spaced}>{pokemonEntry.pokemon.name}</ThemedText>
+                                    {/* Image Background Documentation: https://reactnative.dev/docs/imagebackground */}
+                                    <ImageBackground 
+                                        source={require('./../../assets/images/blackCircle.png')}
+                                        imageStyle={styles.boxedBackgroundImage}>
+                                        
+                                        {/* Attempted to use the plush as a failsafe, but it isn't working atm */}
+                                        {/* Will put a fix in the uriUrl function */}
+
+                                        <Image
+                                            source={{uri:uriUrl(pokemonEntry.pokemon.url)}}
+                                            defaultSource={require('./../../assets/images/plushSubsitute.jpg')}
+                                            style={styles.boxedImage}
+                                        />
+                                    </ImageBackground>
                                 </View>
                             </TouchableOpacity>
                         ))
