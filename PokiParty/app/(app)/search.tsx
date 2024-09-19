@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { BasicBackButton } from '@/components/navigation/BackButton';
-import { StyleSheet, View, TextInput, Image, Modal, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TextInput, Image, Modal, Button, TouchableOpacity, ImageBackground } from 'react-native';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
@@ -154,15 +154,28 @@ export default function Search() {
             {!pokemonTypeData ? (
                 <ThemedText></ThemedText>
             ) : (
-                <View style={styles.center}>
+                <View style={styles.container}>
                     {
                         pokemonTypeData?.pokemon?.map((pokemonEntry, index) => (
                             <TouchableOpacity key={index} onPress={() =>  handlePress(pokemonEntry.pokemon.name)}>
-                                <Image
-                                    source={{uri:uriUrl(pokemonEntry.pokemon.url)}}
-                                    style={{width: 100, height: 100}}
-                                />
-                                <ThemedText style={styles.spaced}>{pokemonEntry.pokemon.name}</ThemedText>
+
+                                {/* Nested view in order to properly style the pokemon icons */}
+                                <View style={styles.box}>
+                                    {/* Image Background Documentation: https://reactnative.dev/docs/imagebackground */}
+                                    <ImageBackground 
+                                        source={require('./../../assets/images/blackCircle.png')}
+                                        imageStyle={styles.boxedBackgroundImage}>
+                                        
+                                        {/* Attempted to use the plush as a failsafe, but it isn't working atm */}
+                                        {/* Will put a fix in the uriUrl function */}
+
+                                        <Image
+                                            source={{uri:uriUrl(pokemonEntry.pokemon.url)}}
+                                            defaultSource={require('./../../assets/images/plushSubsitute.jpg')}
+                                            style={styles.boxedImage}
+                                        />
+                                    </ImageBackground>
+                                </View>
                             </TouchableOpacity>
                         ))
                     }
@@ -219,71 +232,3 @@ export default function Search() {
         </ParallaxScrollView>
     );
 };
-
-const styles = StyleSheet.create({
-    headerImage: {
-      color: '#808080',
-      bottom: -90,
-      left: -35,
-      position: 'absolute',
-    },
-    titleContainer: {
-      flexDirection: 'row',
-      gap: 8,
-    },
-    buttonContainer: {
-        alignItems: 'center',
-        width: '100%'
-    },
-    searchInput: {
-        flex: 1,
-        marginLeft: 8,
-        fontSize: 16,
-    },
-    statColumns: {
-        flexDirection : 'column',
-        alignItems: 'center',
-        alignSelf: 'center',
-        margin: 5
-    },
-    search: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        alignSelf: 'center',
-        backgroundColor: '#F0F0F0',
-        borderRadius: 10,
-        paddingHorizontal: 10,
-        paddingVertical: 5,
-        marginVertical: 10,
-    },
-    rows: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        alignSelf: 'center'
-    },
-    center: {
-        alignItems: 'center',
-        alignSelf: 'center',
-        paddingBottom: 20
-    },
-    spaced: {
-        padding: 10
-    },
-    modalContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
-    },
-    modalContent: {
-        backgroundColor: 'white',
-        padding: 20,
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    modalText: {
-        fontSize: 18,
-        marginBottom: 15,
-    },
-});
