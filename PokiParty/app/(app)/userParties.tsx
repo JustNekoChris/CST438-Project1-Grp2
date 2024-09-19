@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Button, FlatList, Alert, TextInput } from 'react-native';
-import { NativeModules } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, Button, FlatList, StyleSheet, Alert, TextInput } from 'react-native';
 
 // imports the main style sheet 
 import { styles } from '../../assets/styles/mainStyleSheet';
@@ -8,6 +7,7 @@ import { styles } from '../../assets/styles/mainStyleSheet';
 // Other common assets
 import { BasicBackButton } from '@/components/navigation/BackButton';
 
+import { NativeModules } from 'react-native';
 const { PokiPartyModule } = NativeModules;
 
 const Team: React.FC = () => {
@@ -28,7 +28,7 @@ const Team: React.FC = () => {
       return;
     }
     try {
-      const result = await PokiPartyModule.insertTeam('user1', teamName, 'poke1', 'poke2', 'poke3', 'poke4', 'poke5', 'poke6');
+      const result = await PokiPartyModule.insertTeam('user1', teamName, null, 'poke2', 'poke3', 'poke4', 'poke5', 'poke6');
       console.log('Insert team result:', result);
       fetchAllTeams(); // Fetch teams after inserting a new one
     } catch (error) {
@@ -115,7 +115,7 @@ const Team: React.FC = () => {
       <FlatList
         data={teams}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()} // Ensure 'id' is available and unique
+        keyExtractor={(item) => item.id} // Ensure 'id' is available and unique
         style={styles.list}
       />
 

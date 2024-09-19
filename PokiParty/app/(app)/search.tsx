@@ -7,8 +7,10 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
+import { useSession } from '../../utils/DataContext';
+import AddOrRemoveButton from '@/components/AddOrRemoveButton';
 // Basic style sheet
-import { styles } from '@/assets/styles/searchPageStyleSheet';
+// import { styles } from '@/assets/styles/searchPageStyleSheet';
 
 export default function Search() {
     const [searchBool, setSearchBool] = useState(false);
@@ -19,7 +21,7 @@ export default function Search() {
     const [modalVisible, setModalVisible] = useState(false);
 
     const handlePress = async (pokemonName : string) => {
-        getModalData(pokemonName);
+        await getModalData(pokemonName);
         setModalVisible(true);
     };
     
@@ -140,6 +142,11 @@ export default function Search() {
                         <ThemedText style={styles.statColumns}> {pokemonData["stats"][4]["stat"]['name']} : {pokemonData["stats"][4]["base_stat"]} </ThemedText>
                         <ThemedText style={styles.statColumns}> {pokemonData["stats"][5]["stat"]['name']} : {pokemonData["stats"][5]["base_stat"]} </ThemedText>
                     </View>
+                    <View style={styles.center}>
+                        {/* new button that changes whther pokemon exists for user or not */}
+                        <AddOrRemoveButton pokeID={pokemonData["id"]}/>
+                        {/* <Button title='Add to Team' onPress={() => addPokemonToPC(pokemonData["id"], pokemonData["name"], pokemonData["sprites"]["front_default"])} /> */}
+                    </View>
                 </View>
             )}   
 
@@ -195,7 +202,11 @@ export default function Search() {
                                             <ThemedText style={styles.statColumns}> {modalData["stats"][5]["stat"]['name']} : {modalData["stats"][5]["base_stat"]} </ThemedText>
                                         </View>
                                     </View>
-                                    <Button title="Back" onPress={() => setModalVisible(false)} />
+                                    <View style={styles.center, styles.rows}>
+                                        <Button title="Back" onPress={() => setModalVisible(false)} />
+                                        <AddOrRemoveButton pokeID={modalData["id"]}/>
+                                        {/* <Button title='Add to Team' onPress={() => addPokemonToPC(modalData["id"], modalData["name"], modalData["sprites"]["front_default"])} /> */}
+                                    </View>
                                 </View>
                             </View>
                         )}
