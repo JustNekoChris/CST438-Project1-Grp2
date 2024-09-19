@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { BasicBackButton } from '@/components/navigation/BackButton';
 import { StyleSheet, View, TextInput, Image, Modal, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TextInput, Image, Modal, Button, TouchableOpacity } from 'react-native';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
