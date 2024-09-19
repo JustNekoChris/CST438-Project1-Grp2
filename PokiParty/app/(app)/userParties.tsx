@@ -19,12 +19,13 @@ export default function UserParties() {
   const [teamId, setTeamId] = useState(-1);
   const [teamIndex, setTeamIndex] = useState(0);
   const [showTeams, setShowTeams] = useState(false);
+  const {email} = useSession();
 
   // Will now load the teams when the app is loaded
   // Source: https://stackoverflow.com/questions/64945215/react-native-how-to-execute-function-every-time-when-i-open-page
   useEffect(() =>
   {
-    fetchTeams('user1').then((result) => {
+    fetchTeams(email!).then((result) => {
       setTeams(result);
     });
   }, [])
@@ -47,9 +48,9 @@ export default function UserParties() {
       return;
     }
     try {
-      const result: string = await PokiPartyModule.insertNewTeam('user1', teamName);
+      const result: string = await PokiPartyModule.insertNewTeam(email, teamName);
       console.log('Insert team result:', result);
-      setTeams(await fetchTeams('user1')); // Fetch teams after inserting a new one
+      setTeams(await fetchTeams(email!)); // Fetch teams after inserting a new one
     } catch (error) {
       console.error('Error inserting team:', error);
     }
@@ -69,7 +70,7 @@ export default function UserParties() {
       await PokiPartyModule.deleteTeam(teamId);
   
       // Refresh the list after deletion
-      setTeams(await fetchTeams('user1'));
+      setTeams(await fetchTeams(email!));
     } catch (error) {
       console.error('Error deleting team member:', error);
       Alert.alert('Error', 'Failed to delete team member');
