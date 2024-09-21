@@ -200,7 +200,7 @@ export default function Search() {
                         <ThemedText> Height: {pokemonData["height"]}</ThemedText>
                         <ThemedText>Type(s):</ThemedText>
                         {pokemonData.types?.map((type, index) => (
-                            <ThemedText>{type.type.name}</ThemedText>
+                            <ThemedText key={index}>{type.type.name}</ThemedText>
                         ))}
                     </View>
                     <ThemedText style={styles.center} type="title">Base Stats</ThemedText>
@@ -276,7 +276,7 @@ export default function Search() {
                                             <ThemedText> Height: {modalData["height"]}</ThemedText>
                                             <ThemedText>Type(s):</ThemedText>
                                             {modalData.types?.map((type, index) => (
-                                                <ThemedText>{type.type.name}</ThemedText>
+                                                <ThemedText key={index}>{type.type.name}</ThemedText>
                                             ))}
                                         </View>
                                     </View>
