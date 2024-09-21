@@ -135,7 +135,7 @@ export default function UserParties() {
             userInfo={email!}
           />
           
-          <BasicBackButton/>
+          {/* <BasicBackButton/> */}
 
           <View style={styles.footer}>
             <Button color={'#660f22'} title='Delete Team' onPress={() => deleteTeam()} />
