@@ -16,7 +16,7 @@ import { useEffect, useState } from 'react';
 
 import { useSession } from '../../utils/DataContext';
 
-export default function userPC() {
+export default function UserPC() {
   const [pokemon, setPokemon] = useState<any[]>([]); // store pokemon
   const {email} = useSession();
 
@@ -69,9 +69,7 @@ export default function userPC() {
   return (
 
     // Initial view block
-    <View style={styles.container}>
-
-      <BasicBackButton/>
+    <View style={[styles.container]}>
 
       <FlatList
         data={pokemon}

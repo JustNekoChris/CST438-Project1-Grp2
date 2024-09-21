@@ -2,6 +2,7 @@ import { Text } from 'react-native';
 import { Redirect, Stack } from 'expo-router';
 
 import { useSession } from '../../utils/DataContext';
+import BottomTabs from '@/components/BottomTabs';
 
 /**
  * Code taken from Expo documentation: https://docs.expo.dev/router/reference/authentication/#example-authentication-context
@@ -26,8 +27,9 @@ export default function AppLayout() {
   // This layout can be deferred because it's not the root layout.
 
   // Expo version of the Stack System
-  return <Stack 
-            screenOptions={{
-            headerShown: false
-            }}/>;
+  // return <Stack 
+  //           screenOptions={{
+  //           headerShown: false
+  //           }}/>;
+  return <BottomTabs/>
 }

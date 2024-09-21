@@ -7,6 +7,7 @@ import { router } from "expo-router";
 
 // Basic style sheet
 import { styles } from '@/assets/styles/mainStyleSheet';
+import BottomTabs from '@/components/BottomTabs';
 
 export default function Index() {
   const { signOut } = useSession();
@@ -26,7 +27,7 @@ export default function Index() {
         }}
       ></Button>
 
-      <Button
+      {/* <Button
         title="Pokedex"
         color = {'#bf0d0a'}
         onPress={() => {
@@ -46,7 +47,9 @@ export default function Index() {
         onPress={() => {
           router.push('./userParties');
         }}
-      ></Button>
+      ></Button> */}
+
+      <BottomTabs/>
       
 
     </View>

@@ -126,7 +126,7 @@ export default function UserParties() {
           
           <PokemonParty pokemonIds={getIds()} />
           
-          <BasicBackButton/>
+          {/* <BasicBackButton/> */}
 
           <View style={styles.footer}>
             <Button color={'#660f22'} title='Delete Team' onPress={() => deleteTeam()} />

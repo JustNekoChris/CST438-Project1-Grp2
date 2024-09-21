@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { BasicBackButton } from '@/components/navigation/BackButton';
-import { View, TextInput, Image, Modal, Button, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, TextInput, Image, Modal, Button, TouchableOpacity, ImageBackground, Text } from 'react-native';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
@@ -119,7 +119,11 @@ export default function Search() {
 
             {/* Search Result */}
             {!pokemonData ? (
-                <ThemedText></ThemedText>
+                <ThemedText>
+                    <View style={styles.center}>
+                        <Text > No Pokemon Found </Text>
+                    </View>
+                </ThemedText>
             ) : (
                 <View>
                     <View style={styles.center}>
