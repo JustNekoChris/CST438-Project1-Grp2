@@ -14,6 +14,14 @@ export interface Party {
   userInfo: string
 };
 
+export interface Pokemon {
+  id: number,
+  imageURL: string,
+  pokeID: number,
+  pokeName: string,
+  userInfo: string,
+};
+
 export async function fetchTeams(userInfo: string): Promise<Party[]> {
   try {
     const teamsList = await PokiPartyModule.getAllTeams();
@@ -44,5 +52,24 @@ export async function populateTeam(userInfo: string, teamName: string) {
     console.log('Insert team result:', result);
   } catch (error) {
     console.error('Error inserting team:', error);
+  }
+}
+
+export async function fetchPokemon(userInfo: string): Promise<Pokemon[]> {
+  try {
+    const pokemonList = await PokiPartyModule.getPokemonByUserInfo(userInfo);
+
+    let pokemonArray: Pokemon[];
+    try {
+      pokemonArray = JSON.parse(pokemonList);
+    } catch (e) {
+      console.error('Error parsing pokemon JSON: ', e);
+      return [];
+    }
+
+    return pokemonArray;
+  } catch (e) {
+    console.error('Error fetching pokemon: ', e);
+    return [];
   }
 }

@@ -61,5 +61,4 @@ export const styles = StyleSheet.create({
   Button: {
     color : '#bf0d0a'
   }
-  }  
-);
+});

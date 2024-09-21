@@ -12,26 +12,23 @@ import { router } from "expo-router";
 // sets up a basic pokemon data type for front end data handling
 // https://reactnative.dev/docs/intro-react
 interface pokemonData {
-    id: Number;
+    id: number,
+    onPress: any,
+    width: number,
+    height: number,
   };
 
 // Base code to let users click on an image of a pokemon and have something happen
 // TODO : Redirect to a specific pokemon page
-export function PokeIcon ({ id } : pokemonData ) {
-    
-    // Handler function to call pressFunct with the id
-    const pressFunct = (val: Number) => {
-        console.log(val)
-    }
-
+export function PokeIcon ({ id, onPress, width, height } : pokemonData ) {
     if (id != 0 ) {
 
         // The system is currently hardcoded to use the subsitute image as a placeholder
-        return <Pressable onPress={() => pressFunct(id)}>
+        return <Pressable onPress={() => onPress(id)}>
         
             <Image
             source={{uri:'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + id + '.png'}}
-            style={{width: 200, height: 200}}
+            style={{width: width, height: height}}
             />
     
         </Pressable>
@@ -40,11 +37,11 @@ export function PokeIcon ({ id } : pokemonData ) {
     else {
 
         // The system is currently hardcoded to use the subsitute image as a placeholder
-        return <Pressable onPress={() => pressFunct(id)}>
+        return <Pressable onPress={() => onPress(id)}>
 
             <Image
             source={require('./../assets/images/plushSubsitute.jpg')}
-            style={{width: 200, height: 200}}
+            style={{width: width, height: height}}
             />
 
         </Pressable>

@@ -73,12 +73,34 @@ public class PokiPartyModule extends ReactContextBaseJavaModule {
             try {
                 Team team = db.team().getById(teamId);
                 Integer returnCode = team.addPokemon(pokeId);
+                db.team().update(team);
                 promise.resolve(returnCode);
             } catch (Exception e) {
                 promise.reject("Error adding team member", e);
             }
         }).start();
     }
+    
+    /**
+     * Method for adding a pokemon to an existing team
+     * @param teamId ID of team
+     * @param pokeId ID of pokemon to insert
+     * @param promise
+     */
+    @ReactMethod
+    public void addTeamMemberAtIndex(int teamId, String pokeId, int index, Promise promise) {
+        new Thread(() -> {
+            try {
+                Team team = db.team().getById(teamId);
+                Integer returnCode = team.addPokemon(pokeId, index);
+                db.team().update(team);
+                promise.resolve(returnCode);
+            } catch (Exception e) {
+                promise.reject("Error adding team member", e);
+            }
+        }).start();
+    }
+    
 
     // Example of querying all teams
     @ReactMethod

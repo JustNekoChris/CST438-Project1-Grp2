@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, Alert, TextInput } from 'react-native';
 import { PokemonParty } from '@/components/PokemonParty';
-import { fetchTeams, Party } from '@/functions/FetchTeams';
+import { fetchTeams, Party } from '@/functions/FetchDatabaseInfo';
 import { useSession } from '@/utils/DataContext';
 
 // imports the main style sheet 
@@ -27,6 +27,7 @@ export default function UserParties() {
   {
     fetchTeams(email!).then((result) => {
       setTeams(result);
+      console.log(result);
     });
   }, [])
   
@@ -124,7 +125,11 @@ export default function UserParties() {
             <Button title='Next Team' onPress={() => deleteTeam()} />
           </View>
           
-          <PokemonParty pokemonIds={getIds()} />
+          <PokemonParty
+            pokemonIds={getIds()}
+            teamId={teamId}
+            userInfo={email!}
+          />
           
           <BasicBackButton/>
 
