@@ -1,5 +1,5 @@
 import { Text } from 'react-native';
-import { Redirect, Stack } from 'expo-router';
+import { Redirect } from 'expo-router';
 
 import { useSession } from '../../utils/DataContext';
 import BottomTabs from '@/components/BottomTabs';

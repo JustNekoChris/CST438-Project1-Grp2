@@ -70,7 +70,9 @@ export default function UserPC() {
 
     // Initial view block
     <View style={[styles.container]}>
+      <Text style={[styles.title, { fontSize: 24, marginBottom: 20, marginTop: 50 }]}>Your Pokemon Collection</Text>
 
+      {/* FlatList to display the pokemon */}
       <FlatList
         data={pokemon}
         renderItem={renderItem}

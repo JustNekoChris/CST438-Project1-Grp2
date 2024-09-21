@@ -43,7 +43,7 @@ export default function Index (){
       // BIG DEAL : Will look into - Ed
       // Honestly haven't yet. Will look into what the replace stuff does once I do more styling stuff - Ed 9/14/24
 
-      router.replace('/(app)/_layout.tsx');
+      router.replace('/');
     } catch (error: any) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         console.log('User cancelled the login flow');

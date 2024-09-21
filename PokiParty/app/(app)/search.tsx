@@ -37,6 +37,13 @@ export default function Search() {
     };
 
     const searchByName = async (pokemon : string) => {
+        // If the pokemon is empty, return a warning
+        if (pokemon == "") {
+            console.log("Empty search query");
+            setErrorVisible(true);
+            return;
+        }
+        
         let url = `https://pokeapi.co/api/v2/pokemon/${pokemon}/`
         let response = await fetch(url);
         
@@ -181,11 +188,7 @@ export default function Search() {
 
             {/* Search Result */}
             {!pokemonData ? (
-                <ThemedText>
-                    <View style={styles.center}>
-                        <Text > No Pokemon Found </Text>
-                    </View>
-                </ThemedText>
+                <ThemedText/>
             ) : (
                 <View>
                     <View style={styles.center}>
@@ -300,9 +303,6 @@ export default function Search() {
                     </Modal>
                 </View>
             )}    
-            <View style={styles.center}>
-                <BasicBackButton/>  
-            </View>
         </ParallaxScrollView>
     );
 };
