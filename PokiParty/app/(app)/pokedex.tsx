@@ -12,6 +12,9 @@ import AddOrRemoveButton from '@/components/AddOrRemoveButton';
 // Basic style sheet
 import { styles } from '@/assets/styles/searchPageStyleSheet';
 
+// Pokemon stat display component
+import { PokeStats, pokemonData } from '@/components/pokemonStatsDisplay';
+
 export default function Search() {
     const [searchBool, setSearchBool] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -138,30 +141,25 @@ export default function Search() {
                 <ThemedText></ThemedText>
             ) : (
                 <View>
-                    <View style={styles.center}>
-                        <ThemedText>{pokemonData["name"]}</ThemedText>
-                        <Image 
-                        source={{ uri : pokemonData["sprites"]["front_default"]}}
-                        style={{width : 200, height : 200}}
-                        />
-                        <ThemedText> Height: {pokemonData["height"]}</ThemedText>
-                    </View>
-                    <ThemedText style={styles.center} type="title">Base Stats</ThemedText>
-                    <View style={styles.rows}>
-                        <ThemedText style={styles.statColumns}> {pokemonData["stats"][0]["stat"]['name']} : {pokemonData["stats"][0]["base_stat"]} </ThemedText>
-                        <ThemedText style={styles.statColumns}> {pokemonData["stats"][1]["stat"]['name']} : {pokemonData["stats"][1]["base_stat"]} </ThemedText>
-                        <ThemedText style={styles.statColumns}> {pokemonData["stats"][2]["stat"]['name']} : {pokemonData["stats"][2]["base_stat"]} </ThemedText>
-                    </View>
-                    <View style={styles.rows}>
-                        <ThemedText style={styles.statColumns}> {pokemonData["stats"][3]["stat"]['name']} : {pokemonData["stats"][3]["base_stat"]} </ThemedText>
-                        <ThemedText style={styles.statColumns}> {pokemonData["stats"][4]["stat"]['name']} : {pokemonData["stats"][4]["base_stat"]} </ThemedText>
-                        <ThemedText style={styles.statColumns}> {pokemonData["stats"][5]["stat"]['name']} : {pokemonData["stats"][5]["base_stat"]} </ThemedText>
-                    </View>
-                    <View style={styles.center}>
-                        {/* new button that changes whther pokemon exists for user or not */}
-                        <AddOrRemoveButton pokeID={pokemonData["id"]}/>
-                        {/* <Button title='Add to Team' onPress={() => addPokemonToPC(pokemonData["id"], pokemonData["name"], pokemonData["sprites"]["front_default"])} /> */}
-                    </View>
+
+                    <PokeStats { temp = {
+                       pokemonData["name"],
+                       pokemonData["sprites"]["front_default"],
+                       pokemonData["height"],
+                       pokemonData["stats"][0]["stat"]['name'],
+                       pokemonData["stats"][0]["base_stat"],
+                       pokemonData["stats"][1]["stat"]['name'],
+                       pokemonData["stats"][1]["base_stat"],
+                       pokemonData["stats"][2]["stat"]['name'],
+                       pokemonData["stats"][2]["base_stat"],
+                       pokemonData["stats"][3]["stat"]['name'],
+                       pokemonData["stats"][3]["base_stat"],
+                       pokemonData["stats"][4]["stat"]['name'],
+                       pokemonData["stats"][4]["base_stat"],
+                       pokemonData["stats"][5]["stat"]['name'],
+                       pokemonData["stats"][5]["base_stat"]
+                    }} />
+
                 </View>
             )}   
 
