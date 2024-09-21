@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Modal, SafeAreaView, ScrollView, Button } from 'react-native';
+import { View, Modal, SafeAreaView, ScrollView, Button, Text } from 'react-native';
 import { PokeIcon } from './pokemonIcon';
 import { PcModal } from './pcModal';
 import { router } from 'expo-router';
@@ -53,6 +53,7 @@ export function PokemonParty({ pokemonIds, teamId, userInfo, setFocused }: Party
         <SafeAreaView>
           <ScrollView>
             <View style={styles.container}>
+              <Text>Select Pokemon from PC</Text>
               <PcModal 
                 userInfo={userInfo}
                 teamId={teamId}

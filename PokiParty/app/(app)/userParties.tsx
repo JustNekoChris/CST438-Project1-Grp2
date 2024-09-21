@@ -134,7 +134,7 @@ export default function UserParties() {
             setFocused={setFocused}
           />
           
-          {/* <BasicBackButton/> */}
+          <Text>Tap pokemon to edit team</Text>
 
           <View style={styles.footer}>
             <Button color={'#660f22'} title='Delete Team' onPress={() => deleteTeam()} />
