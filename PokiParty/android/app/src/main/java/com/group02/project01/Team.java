@@ -143,7 +143,7 @@ public class Team {
      */
     public int addPokemon(String pokeId) {
         List<String> listValues = this.getValuesAsList();
-
+        
         for (int i = 0; i < listValues.size(); i++) {
             if (listValues.get(i).equals("")) {
                 listValues.set(i, pokeId);
@@ -151,8 +151,31 @@ public class Team {
                 return 0;
             }
         }
-
+        
         return 1;
+    }
+    
+    /**
+     * 
+     * @param pokeId The ID of the pokemon you wish to add
+     * @param index The index you wish to place the pokemon at
+     * @return 0 if pokemon was successfully added, 1 otherwise
+     */
+    public int addPokemon(String pokeId, int index) {
+        List<String> listValues = this.getValuesAsList();
+
+        // Check if user is trying to add pokemon to invalid index
+        if (index == 0) {
+            listValues.set(index, pokeId);
+            setValuesFromList(listValues);
+        } else if (!listValues.get(index - 1).equals("")) {
+            listValues.set(index, pokeId);
+            setValuesFromList(listValues);
+        } else {
+            return this.addPokemon(pokeId);
+        }
+
+        return 0;
     }
 
     /**
