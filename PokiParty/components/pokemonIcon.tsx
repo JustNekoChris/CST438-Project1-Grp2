@@ -27,7 +27,7 @@ export function PokeIcon ({ id } : pokemonData ) {
     if (id != 0 ) {
 
         // The system is currently hardcoded to use the subsitute image as a placeholder
-        return <Pressable onPress={handlePress}>
+        return <Pressable onPress={() => pressFunct(id)}>
         
             <Image
             source={{uri:'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + id + '.png'}}
