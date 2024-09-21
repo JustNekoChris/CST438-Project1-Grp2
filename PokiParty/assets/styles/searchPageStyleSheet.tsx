@@ -14,39 +14,39 @@ export const styles = StyleSheet.create({
     gap: 8,
   },
   buttonContainer: {
-      alignItems: 'center',
-      width: '100%'
+    alignItems: 'center',
+    width: '100%'
   },
   searchInput: {
-      flex: 1,
-      marginLeft: 8,
-      fontSize: 16,
+    flex: 1,
+    marginLeft: 8,
+    fontSize: 16,
   },
   statColumns: {
-      flexDirection : 'column',
-      alignItems: 'center',
-      alignSelf: 'center',
-      margin: 5
+    flexDirection : 'column',
+    alignItems: 'center',
+    alignSelf: 'center',
+    margin: 5
   },
   search: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      alignSelf: 'center',
-      backgroundColor: '#F0F0F0',
-      borderRadius: 10,
-      paddingHorizontal: 10,
-      paddingVertical: 5,
-      marginVertical: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'center',
+    backgroundColor: '#F0F0F0',
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginVertical: 10,
   },
   rows: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      alignSelf: 'center'
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'center'
   },
   center: {
-      alignItems: 'center',
-      alignSelf: 'center',
-      paddingBottom: 20
+    alignItems: 'center',
+    alignSelf: 'center',
+    paddingBottom: 20
   },
   container: {
     flex: 1,
@@ -56,8 +56,13 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center'
   },
-  spaced: {
-    alignSelf: 'center'
+  spacedUp: {
+    alignSelf: 'center',
+    paddingTop: 30
+  },
+  spacedDown: {
+    alignSelf: 'center',
+    paddingBottom: 20
   },
   box : {
     width: 100,
@@ -77,20 +82,36 @@ export const styles = StyleSheet.create({
     opacity: 0.25
   },
   modalContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
   },
   modalContent: {
-      backgroundColor: 'white',
-      padding: 20,
-      borderRadius: 10,
-      alignItems: 'center',
-      justifyContent: 'center',
+    backgroundColor: 'white',
+    padding: 30,
+    borderRadius: 10,
+    //alignItems: 'center',
+    justifyContent: 'center',
   },
   modalText: {
-      fontSize: 18,
-      marginBottom: 15,
+    fontSize: 18,
+    marginBottom: 15,
   },
+  statNameCell: {
+    justifyContent: 'flex-start',
+    paddingVertical: 6,
+    flex: 2,
+  },
+  statValueCell: {
+    justifyContent: 'flex-end',
+    paddingVertical: 6,
+    flex: 1,
+  },
+  rowEven: {
+    backgroundColor: '#f9f9f9',
+  },
+  rowOdd: {
+    backgroundColor: '#fff',
+  }
 });
