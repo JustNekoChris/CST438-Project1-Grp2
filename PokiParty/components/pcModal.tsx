@@ -13,22 +13,39 @@ interface PcInfo {
   index: number,
 };
 
+/**
+ * 
+ * @param userInfo User email
+ * @param teamId ID of focused party
+ * @param index Index of pokemon that was pressed to arrive here
+ * @returns A component that displays all the user's saved pokemon with the intention of adding one to the focused party
+ */
 export function PcModal({ userInfo, teamId, index }: PcInfo) {
-  const [pokemon, setPokemon] = useState<Pokemon[]>([]);
-  const [showPokemon, setShowPokemon] = useState(false);
+  const [pokemon, setPokemon] = useState<Pokemon[]>([]); // State to store pokemon retrieved from the database
+  const [showPokemon, setShowPokemon] = useState(false); // State to store flag that shows user's pokemon
 
+  /**
+   * Retrieves user's pokemon on load
+   */
   useEffect(() => {
     fetchPokemon(userInfo).then((result) => {
       setPokemon(result);
     });
   }, []);
 
+  /**
+   * Checks if there are pokemon to display, and sets necessary states
+   */
   useEffect(() => {
     if (pokemon.length > 0) {
       setShowPokemon(true);
     }
   })
 
+  /**
+   *  Adds a pokemon to the current team, replacing the pokemon that was pressed
+   * @param id ID of pokemon to add to the focused team at the focused index
+   */
   const addPokemonToTeam = async (id: number) => {
     let rc = await PokiPartyModule.addTeamMemberAtIndex(teamId, id.toString(), index);
     console.log(rc);

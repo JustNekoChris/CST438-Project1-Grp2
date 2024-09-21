@@ -12,9 +12,16 @@ interface PartyProps {
   userInfo: string,
 };
 
+/**
+ * 
+ * @param pokemonIds Array of 6 pokemon to display in this party
+ * @param teamId Id of the party to display
+ * @param userInfo User email
+ * @returns A component that will display 6 pokemon icon components in two columns
+ */
 export function PokemonParty({ pokemonIds, teamId, userInfo }: PartyProps) {
-  const [showModal, setShowModal] = useState(false);
-  const [index, setIndex] = useState(-1);
+  const [showModal, setShowModal] = useState(false); // State to store flag that shows modal
+  const [index, setIndex] = useState(-1); // State to store the index of the pressed pokemon
 
   const setModalInfo = (i: number) => {
     setIndex(i);
@@ -24,6 +31,7 @@ export function PokemonParty({ pokemonIds, teamId, userInfo }: PartyProps) {
   return (
     <View style={styles.columns}> 
 
+      {/* This modal will appear when a pokemon is pressed. */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -47,6 +55,7 @@ export function PokemonParty({ pokemonIds, teamId, userInfo }: PartyProps) {
 
       </Modal>
 
+      {/* Create two columns of pokemon icons */}
       <View style={styles.column}>
         <PokeIcon
           id={pokemonIds[0]}

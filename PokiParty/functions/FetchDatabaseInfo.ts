@@ -22,6 +22,11 @@ export interface Pokemon {
   userInfo: string,
 };
 
+/**
+ * 
+ * @param userInfo User email
+ * @returns Array of user party jsons from database
+ */
 export async function fetchTeams(userInfo: string): Promise<Party[]> {
   try {
     const teamsList = await PokiPartyModule.getAllTeams();
@@ -34,7 +39,8 @@ export async function fetchTeams(userInfo: string): Promise<Party[]> {
       console.error('Error parsing JSON:', e);
       return [];
     }
-    // console.log(teamsArray);
+    
+    // If user has no teams, call populateTeam to give them an empty one
     if (teamsArray.length === 0) {
       await populateTeam(userInfo, 'dawgs');
       teamsArray = await fetchTeams(userInfo);
@@ -46,6 +52,11 @@ export async function fetchTeams(userInfo: string): Promise<Party[]> {
   }
 }
 
+/**
+ * 
+ * @param userInfo User email
+ * @param teamName Team name
+ */
 export async function populateTeam(userInfo: string, teamName: string) {
   try {
     const result: string = await PokiPartyModule.insertNewTeam(userInfo, teamName);
@@ -55,6 +66,11 @@ export async function populateTeam(userInfo: string, teamName: string) {
   }
 }
 
+/**
+ * 
+ * @param userInfo User email
+ * @returns Array of Pokemon jsons from database
+ */
 export async function fetchPokemon(userInfo: string): Promise<Pokemon[]> {
   try {
     const pokemonList = await PokiPartyModule.getPokemonByUserInfo(userInfo);

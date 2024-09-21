@@ -18,12 +18,17 @@ interface pokemonData {
     height: number,
   };
 
-// Base code to let users click on an image of a pokemon and have something happen
-// TODO : Redirect to a specific pokemon page
+/**
+ * 
+ * @param id ID of pokemon to display in this icon
+ * @param onPress Callback that the icon will call when pressed
+ * @param width Width of icon
+ * @param height Height of icon
+ * @returns 
+ */
 export function PokeIcon ({ id, onPress, width, height } : pokemonData ) {
     if (id != 0 ) {
 
-        // The system is currently hardcoded to use the subsitute image as a placeholder
         return <Pressable onPress={() => onPress(id)}>
         
             <Image

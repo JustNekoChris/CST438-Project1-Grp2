@@ -82,7 +82,7 @@ public class PokiPartyModule extends ReactContextBaseJavaModule {
     }
     
     /**
-     * Method for adding a pokemon to an existing team
+     * Method for adding a pokemon to an existing team at a specific index
      * @param teamId ID of team
      * @param pokeId ID of pokemon to insert
      * @param promise

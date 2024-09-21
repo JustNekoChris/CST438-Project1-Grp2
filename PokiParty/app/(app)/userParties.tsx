@@ -15,10 +15,10 @@ const { PokiPartyModule } = NativeModules;
 
 export default function UserParties() {
   const [teams, setTeams] = useState<Party[]>([]); // State to store the list of teams
-  const [teamName, setTeamName] = useState('');
-  const [teamId, setTeamId] = useState(-1);
-  const [teamIndex, setTeamIndex] = useState(0);
-  const [showTeams, setShowTeams] = useState(false);
+  const [teamName, setTeamName] = useState(''); // State to store focused team name
+  const [teamId, setTeamId] = useState(-1); // State to store focused team id
+  const [teamIndex, setTeamIndex] = useState(0); // State to store index of focused team
+  const [showTeams, setShowTeams] = useState(false); // State to store flag that determines if team is displayed
   const {email} = useSession();
 
   // Will now load the teams when the app is loaded
@@ -30,13 +30,16 @@ export default function UserParties() {
     });
   }, [])
   
+  /**
+   * Checks if there are teams to display, and sets necessary states
+   */
   useEffect(() => {
     if (teams.length > 0) {
       setTeamId(parseInt(teams[teamIndex].id));
       setTeamName(teams[teamIndex].teamName);
     }
     setShowTeams(teams.length > 0);
-  }, [teams])
+  })
 
   /**
    * Inserts a new team to the database
@@ -71,7 +74,7 @@ export default function UserParties() {
       await PokiPartyModule.deleteTeam(teamId);
   
       // Refresh the list after deletion
-      setTeamIndex(teamIndex - 1);
+      setTeamIndex((teamIndex - 1) < 0 ? teams.length - 1 : teamIndex - 1);
       setTeams(await fetchTeams(email!));
     } catch (error) {
       console.error('Error deleting team member:', error);
@@ -119,9 +122,11 @@ export default function UserParties() {
         <View style={styles.container}>
 
           <View style={styles.header}>
-            <Button title='Prev Team' onPress={() => deleteTeam()} />
+            {/* Create a Button that decrements the counter, and wraps to the back */}
+            <Button title='Prev Team' onPress={() => setTeamIndex((teamIndex - 1) < 0 ? teams.length - 1 : teamIndex - 1)} />
             <Text>{teamName}</Text>
-            <Button title='Next Team' onPress={() => deleteTeam()} />
+            {/* Create a button that increments the counter, and wraps to the front */}
+            <Button title='Next Team' onPress={() => setTeamIndex((teamIndex + 1) >= teams.length ? 0 : teamIndex + 1)} />
           </View>
           
           <PokemonParty
