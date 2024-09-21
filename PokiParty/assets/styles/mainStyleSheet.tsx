@@ -19,6 +19,8 @@ export const styles = StyleSheet.create({
   },
   item: {
     padding: 16,
+    height: 150,
+    width: 120,
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
   },
@@ -60,6 +62,11 @@ export const styles = StyleSheet.create({
   },
   Button: {
     color : '#bf0d0a'
-  }
+  },
+  center: {
+      alignItems: 'center',
+      alignSelf: 'center',
+      paddingBottom: 20
+  },
   }  
 );

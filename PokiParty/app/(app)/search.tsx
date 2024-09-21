@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { BasicBackButton } from '@/components/navigation/BackButton';
-import { View, TextInput, Image, Modal, Button, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, TextInput, Image, Modal, Button, TouchableOpacity, ImageBackground, Text } from 'react-native';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
-import { useSession } from '../../utils/DataContext';
 import AddOrRemoveButton from '@/components/AddOrRemoveButton';
 // Basic style sheet
 import { styles } from '@/assets/styles/searchPageStyleSheet';
@@ -38,6 +37,13 @@ export default function Search() {
     };
 
     const searchByName = async (pokemon : string) => {
+        // If the pokemon is empty, return a warning
+        if (pokemon == "") {
+            console.log("Empty search query");
+            setErrorVisible(true);
+            return;
+        }
+        
         let url = `https://pokeapi.co/api/v2/pokemon/${pokemon}/`
         let response = await fetch(url);
         
@@ -182,7 +188,7 @@ export default function Search() {
 
             {/* Search Result */}
             {!pokemonData ? (
-                <ThemedText></ThemedText>
+                <ThemedText/>
             ) : (
                 <View>
                     <View style={styles.center}>
@@ -297,9 +303,6 @@ export default function Search() {
                     </Modal>
                 </View>
             )}    
-            <View style={styles.center}>
-                <BasicBackButton/>  
-            </View>
         </ParallaxScrollView>
     );
 };
