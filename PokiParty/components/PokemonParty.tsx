@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Modal } from 'react-native';
+import { View, Modal, SafeAreaView, ScrollView, Button } from 'react-native';
 import { PokeIcon } from './pokemonIcon';
 import { PcModal } from './pcModal';
+import { router } from 'expo-router';
 
 import { styles } from '@/assets/styles/mainStyleSheet';
 
@@ -30,13 +31,20 @@ export function PokemonParty({ pokemonIds, teamId, userInfo }: PartyProps) {
         onRequestClose={() => {
           setShowModal(!showModal);
         }}>
-        <View style={styles.container}>
-          <PcModal 
-            userInfo={userInfo}
-            teamId={teamId}
-            index={index}
-          />
-        </View>
+        
+        <SafeAreaView>
+          <ScrollView>
+            <View style={styles.container}>
+              <PcModal 
+                userInfo={userInfo}
+                teamId={teamId}
+                index={index}
+              />
+              <Button title='Cancel' onPress={() => router.replace('/(app)/userParties')}></Button>
+            </View>
+          </ScrollView>
+        </SafeAreaView>
+
       </Modal>
 
       <View style={styles.column}>

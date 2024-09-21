@@ -36,33 +36,27 @@ export function PcModal({ userInfo, teamId, index }: PcInfo) {
   }
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <View style={styles.container}>
+    <View style={styles.container}>
+      <>
+        {showPokemon ? (
           <>
-            {showPokemon ? (
-              <>
-                {pokemon.map((poke, index) => (
-                  <PokeIcon 
-                    key={poke.id}
-                    id={poke.pokeID}
-                    onPress={(id: number) => addPokemonToTeam(id)}
-                    width={150}
-                    height={150}
-                  />
-                ))}
-              </>
-            )
-              :
-              <Text>
-                User has no pokemon saved. Save pokemon to the PC to continue.
-              </Text>
-            }
+            {pokemon.map((poke, index) => (
+              <PokeIcon 
+                key={poke.id}
+                id={poke.pokeID}
+                onPress={(id: number) => addPokemonToTeam(id)}
+                width={150}
+                height={150}
+              />
+            ))}
           </>
-        </View>
-      </ScrollView>
-
-      <Button title='Cancel' onPress={() => router.replace('/(app)/userParties')}></Button>
-    </SafeAreaView>
+        )
+          :
+          <Text>
+            User has no pokemon saved. Save pokemon to the PC to continue.
+          </Text>
+        }
+      </>
+    </View>
   );
 }

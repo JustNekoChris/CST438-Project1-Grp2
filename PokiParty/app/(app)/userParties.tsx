@@ -27,7 +27,6 @@ export default function UserParties() {
   {
     fetchTeams(email!).then((result) => {
       setTeams(result);
-      console.log(result);
     });
   }, [])
   
