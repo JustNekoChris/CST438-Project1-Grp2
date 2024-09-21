@@ -10,6 +10,7 @@ interface PartyProps {
   pokemonIds: Array<number>,
   teamId: number,
   userInfo: string,
+  setFocused: any,
 };
 
 /**
@@ -19,13 +20,22 @@ interface PartyProps {
  * @param userInfo User email
  * @returns A component that will display 6 pokemon icon components in two columns
  */
-export function PokemonParty({ pokemonIds, teamId, userInfo }: PartyProps) {
+export function PokemonParty({ pokemonIds, teamId, userInfo, setFocused }: PartyProps) {
   const [showModal, setShowModal] = useState(false); // State to store flag that shows modal
   const [index, setIndex] = useState(-1); // State to store the index of the pressed pokemon
 
   const setModalInfo = (i: number) => {
+    setFocused(false);
     setIndex(i);
     setShowModal(true);
+  }
+
+  /**
+   * Function to closeModal and setFocus back to userParties page
+   */
+  const closeModal = () => {
+    setFocused(true);
+    setShowModal(false);
   }
 
   return (
@@ -37,7 +47,7 @@ export function PokemonParty({ pokemonIds, teamId, userInfo }: PartyProps) {
         transparent={true}
         visible={showModal}
         onRequestClose={() => {
-          setShowModal(!showModal);
+          closeModal();
         }}>
         
         <SafeAreaView>
@@ -47,8 +57,9 @@ export function PokemonParty({ pokemonIds, teamId, userInfo }: PartyProps) {
                 userInfo={userInfo}
                 teamId={teamId}
                 index={index}
+                closeModal={closeModal}
               />
-              <Button title='Cancel' onPress={() => router.replace('/(app)/userParties')}></Button>
+              <Button title='Cancel' onPress={() => closeModal()}></Button>
             </View>
           </ScrollView>
         </SafeAreaView>

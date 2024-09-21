@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, Alert, TextInput } from 'react-native';
+import { View, Text, Button, Alert } from 'react-native';
 import { PokemonParty } from '@/components/PokemonParty';
 import { fetchTeams, Party } from '@/functions/FetchDatabaseInfo';
 import { useSession } from '@/utils/DataContext';
 
 // imports the main style sheet 
 import { styles } from '../../assets/styles/mainStyleSheet';
-
-// Other common assets
-import { BasicBackButton } from '@/components/navigation/BackButton';
 
 import { NativeModules } from 'react-native';
 const { PokiPartyModule } = NativeModules;
@@ -19,22 +16,23 @@ export default function UserParties() {
   const [teamId, setTeamId] = useState(-1); // State to store focused team id
   const [teamIndex, setTeamIndex] = useState(0); // State to store index of focused team
   const [showTeams, setShowTeams] = useState(false); // State to store flag that determines if team is displayed
+  const [focused, setFocused] = useState(true);
   const {email} = useSession();
 
-  // Will now load the teams when the app is loaded
-  // Source: https://stackoverflow.com/questions/64945215/react-native-how-to-execute-function-every-time-when-i-open-page
-  useEffect(() =>
-  {
-    fetchTeams(email!).then((result) => {
-      setTeams(result);
-    });
-  }, [])
+  /**
+   * Fetches teams from database whenever focus changes
+   */
+  useEffect(() => {
+      fetchTeams(email!).then((result) => {
+        setTeams(result);
+      });
+  }, [focused]);
   
   /**
    * Checks if there are teams to display, and sets necessary states
    */
   useEffect(() => {
-    if (teams.length > 0) {
+    if (teams.length > 0 && teamIndex < teams.length) {
       setTeamId(parseInt(teams[teamIndex].id));
       setTeamName(teams[teamIndex].teamName);
     }
@@ -133,6 +131,7 @@ export default function UserParties() {
             pokemonIds={getIds()}
             teamId={teamId}
             userInfo={email!}
+            setFocused={setFocused}
           />
           
           {/* <BasicBackButton/> */}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
-import { useSession } from '../utils/DataContext';
+import { useSession } from '../../utils/DataContext';
 import { styles } from '@/assets/styles/mainStyleSheet';
 
 export default function LogOut() {

@@ -11,6 +11,7 @@ interface PcInfo {
   userInfo: string,
   teamId: number,
   index: number,
+  closeModal: any,
 };
 
 /**
@@ -20,7 +21,7 @@ interface PcInfo {
  * @param index Index of pokemon that was pressed to arrive here
  * @returns A component that displays all the user's saved pokemon with the intention of adding one to the focused party
  */
-export function PcModal({ userInfo, teamId, index }: PcInfo) {
+export function PcModal({ userInfo, teamId, index, closeModal }: PcInfo) {
   const [pokemon, setPokemon] = useState<Pokemon[]>([]); // State to store pokemon retrieved from the database
   const [showPokemon, setShowPokemon] = useState(false); // State to store flag that shows user's pokemon
 
@@ -47,9 +48,8 @@ export function PcModal({ userInfo, teamId, index }: PcInfo) {
    * @param id ID of pokemon to add to the focused team at the focused index
    */
   const addPokemonToTeam = async (id: number) => {
-    let rc = await PokiPartyModule.addTeamMemberAtIndex(teamId, id.toString(), index);
-    console.log(rc);
-    router.replace('/(app)/userParties');
+    await PokiPartyModule.addTeamMemberAtIndex(teamId, id.toString(), index);
+    closeModal();
   }
 
   return (
