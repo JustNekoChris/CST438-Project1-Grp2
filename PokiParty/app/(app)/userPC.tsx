@@ -59,7 +59,7 @@ export default function UserPC() {
 
    // Render item for FlatList
    const renderItem = ({ item }: { item: any }) => (
-    <View style={styles.item}>
+    <View style={styles.item} testID='pcPokemon'>
       <Image source={{ uri : item.imageURL }} style={{width: 80, height: 80}}/>
       <Text style={styles.itemText}>{item.pokeName}</Text>
     </View>

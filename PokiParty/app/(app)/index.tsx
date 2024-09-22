@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { BasicBackButton } from '@/components/navigation/BackButton';
 import { View, TextInput, Image, Modal, Button, TouchableOpacity, ImageBackground, Text } from 'react-native';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -130,16 +129,18 @@ export default function Search() {
                         placeholder={'squirtle'}
                         value={searchQuery}
                         onChangeText={setSearchQuery}
+                        testID='searchBar'
                     />
                 </View>
                 <View style={styles.statColumns}>
-                    <Button title="Search" onPress={() => searchByName(searchQuery)} />
+                    <Button testID='searchButton' title="Search" onPress={() => searchByName(searchQuery)} />
                 </View>
             </View>
 
             {/* Search By Type button */}
             <View style={styles.buttonContainer}>
                 <Button 
+                    testID='showTypeModalButton'
                     title={'Search By Type'} 
                     onPress={showModal}/>
             </View>
@@ -162,7 +163,7 @@ export default function Search() {
                                 <Button title="Back" onPress={() => setTypeSearchVisible(false)} />
                             </View>
                             <View style={styles.statColumns}>
-                                <Button title="Search" onPress={() => searchByType(selectedType)} />
+                                <Button testID='searchTypeButton' title="Search" onPress={() => searchByType(selectedType)} />
                             </View>
                         </View>
                     </View>
@@ -229,7 +230,7 @@ export default function Search() {
                 <View style={styles.container}>
                     {
                         pokemonTypeData?.pokemon?.map((pokemonEntry, index) => (
-                            <TouchableOpacity key={index} onPress={() =>  handlePress(pokemonEntry.pokemon.name)}>
+                            <TouchableOpacity testID='searchPokemonImage' key={index} onPress={() =>  handlePress(pokemonEntry.pokemon.name)}>
 
                                 {/* Nested view in order to properly style the pokemon icons */}
                                 <View style={styles.box}>
