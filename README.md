@@ -20,6 +20,12 @@ First and foremost, this app uses Google Authentication to keep track of user da
   * We considered 13 User Stories
 * How many stories/issues were completed
   * We completed 12
+ 
+## Team Presentation
+
+[CST 438 Project01Group02](https://www.youtube.com/watch?v=aRg6y6ORcZY)
+
+[![CST 438 Project01Group02](https://img.youtube.com/vi/aRg6y6ORcZY/0.jpg)](https://www.youtube.com/watch?v=aRg6y6ORcZY)
 
 # The Development Story (aka Team Retrospective)
 
