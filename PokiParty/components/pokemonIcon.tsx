@@ -29,7 +29,7 @@ interface pokemonData {
 export function PokeIcon ({ id, onPress, width, height } : pokemonData ) {
     if (id != 0 ) {
 
-        return <Pressable onPress={() => onPress(id)}>
+        return <Pressable testID='pokemonIcon' onPress={() => onPress(id)}>
         
             <Image
             source={{uri:'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + id + '.png'}}
@@ -42,7 +42,7 @@ export function PokeIcon ({ id, onPress, width, height } : pokemonData ) {
     else {
 
         // The system is currently hardcoded to use the subsitute image as a placeholder
-        return <Pressable onPress={() => onPress(id)}>
+        return <Pressable testID='pokemonIcon' onPress={() => onPress(id)}>
 
             <Image
             source={require('./../assets/images/plushSubsitute.jpg')}

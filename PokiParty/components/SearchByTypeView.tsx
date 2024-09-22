@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { styles } from '@/assets/styles/dropdownStyleSheet';
 import DropDownPicker from 'react-native-dropdown-picker';
 
-export function SearchByType({ onValueChange }) {
+export function SearchByType({ onValueChange }: any) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
   const [items, setItems] = useState([
@@ -27,7 +27,7 @@ export function SearchByType({ onValueChange }) {
     {label: 'Fairy', value: 'fairy'}
   ]);
 
-  const handleValueChange = (selectedValue) => {
+  const handleValueChange = (selectedValue: any) => {
     setValue(selectedValue);
     if (onValueChange) {
       onValueChange(selectedValue); // Call the parent function
@@ -37,6 +37,7 @@ export function SearchByType({ onValueChange }) {
   return (
     <View style={[styles.width, styles.center]}>
       <DropDownPicker
+        testID='dropDown'
         open={open}
         value={value}
         items={items}

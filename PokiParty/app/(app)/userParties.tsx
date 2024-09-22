@@ -16,7 +16,7 @@ export default function UserParties() {
   const [teamId, setTeamId] = useState(-1); // State to store focused team id
   const [teamIndex, setTeamIndex] = useState(0); // State to store index of focused team
   const [showTeams, setShowTeams] = useState(false); // State to store flag that determines if team is displayed
-  const [focused, setFocused] = useState(true);
+  const [focused, setFocused] = useState(true); // State to store flag that determines if this page is focused
   const {email} = useSession();
 
   /**
@@ -28,6 +28,7 @@ export default function UserParties() {
       });
   }, [focused]);
   
+
   /**
    * Checks if there are teams to display, and sets necessary states
    */
@@ -38,6 +39,7 @@ export default function UserParties() {
     }
     setShowTeams(teams.length > 0);
   })
+
 
   /**
    * Inserts a new team to the database
@@ -57,6 +59,7 @@ export default function UserParties() {
       console.error('Error inserting team:', error);
     }
   };
+
 
   /**
    * Deletes a team from the database
@@ -79,6 +82,7 @@ export default function UserParties() {
       Alert.alert('Error', 'Failed to delete team member');
     }
   };
+
 
   /**
    * 
@@ -116,8 +120,10 @@ export default function UserParties() {
 
   return (
     <>
+      <Text testID='teamIndexText' disabled={true}>{teamIndex}</Text>
       {showTeams &&
         <View style={styles.container}>
+
 
           <View style={styles.header}>
             {/* Create a Button that decrements the counter, and wraps to the back */}
@@ -134,7 +140,7 @@ export default function UserParties() {
             setFocused={setFocused}
           />
           
-          {/* <BasicBackButton/> */}
+          <Text>Tap pokemon to edit team</Text>
 
           <View style={styles.footer}>
             <Button color={'#660f22'} title='Delete Team' onPress={() => deleteTeam()} />
