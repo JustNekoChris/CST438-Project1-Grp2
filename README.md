@@ -24,8 +24,8 @@ First and foremost, this app uses Google Authentication to keep track of user da
 # The Development Story (aka Team Retrospective)
 
 ## Judah Silva
-- [Pull requests](https://github.com/JustNekoChris/CST438-Project1-Grp2/pulls?q=is%3Apr+author%3A%40me+)
-- [Issues](https://github.com/JustNekoChris/CST438-Project1-Grp2/issues?q=is%3Aissue+assignee%3A%40me+)
+- [Pull requests](https://github.com/JustNekoChris/CST438-Project1-Grp2/pulls?q=is%3Apr+is%3Aclosed+author%3AJudah-Silva)
+- [Issues](https://github.com/JustNekoChris/CST438-Project1-Grp2/issues?q=is%3Aissue+assignee%3AJudah-Silva)
 
 ### My Role: Working on Google OAuth and User's teams
 + What was the biggest challenge? 
@@ -40,6 +40,44 @@ First and foremost, this app uses Google Authentication to keep track of user da
   + I would start working on Unit tests a lot earlier
 + What is the most valuable thing you learned?
   + Probably how to actually create and manage a React-Native app. I can use it going forward and make it something I can possibly put on a resume.
+
+## Edward Leon
+- [Pull requests](https://github.com/JustNekoChris/CST438-Project1-Grp2/pulls?q=is%3Apr+is%3Aclosed+author%3AEdwardLe0n)
+- [Issues](https://github.com/JustNekoChris/CST438-Project1-Grp2/issues?q=is%3Aissue+assignee%3AEdwardLe0n+)
+
+### My Role: Cleaning up the Front End by Utilizing the PokeAPI 
++ What was the biggest challenge? 
+  + For the most part, most of my challenges centered around figuring out to properly utilize our database calls to properly display information 
++ Why was it a challenge?
+  + There are various API calls that return info very differently from each other, which is expected to say the least
+    + One primary instance of this would be when someone calls https://pokeapi.co/api/v2/pokemon/ this results in getting a list of Pokemon with just the name and url
+    + This is different than the https://pokeapi.co/api/v2/type/fire/ ; where fire can be any type in the games; as it returns all the data mentioned previously, with the addition of   
++ Favorite / most interesting part of this project
+  + As much trouble as the API calls gave me, I really enjoyed 'being a rat' and doing whatever I could to cobble stuff together
+  + For instance, in the https://pokeapi.co/api/v2/pokemon/ call, the link given directs to a Pokemon Poke API page, but it utilizes the same id system for pictures, so I went ahead and pulled the ID from the URL, and slapped it into another call to properly get images!
++ If you could do it over, what would you change?
+  + Abstracting stuff is the first thing I'd like to do, as there were many areas that had duplicate code, so being able to abstract and easily make all the changes in one place would be nice
++ What is the most valuable thing you learned?
+  + Communication is key, especially near the tail end, as knowing who's working on what as to not step on each others toes and save time is crucial
+
+# Tempalate
+
+## Name Name
+- [Pull requests]()
+- [Issues]()
+
+### My Role: 
++ What was the biggest challenge? 
+  + 
++ Why was it a challenge?
+  + 
++ Favorite / most interesting part of this project
+  + 
++ If you could do it over, what would you change?
+  + 
++ What is the most valuable thing you learned?
+  + 
+
 
 ## How's this app built?
 
