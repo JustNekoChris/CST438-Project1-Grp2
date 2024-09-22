@@ -76,24 +76,21 @@ First and foremost, this app uses Google Authentication to keep track of user da
 + What is the most valuable thing you learned?
   + Having good communications with your teammates is key because if you change one thing it may mess things up for the others.
 
-# Tempalate
+## Saul Machuca
+- [Pull requests](https://github.com/JustNekoChris/CST438-Project1-Grp2/issues?q=is%3Aclosed+is%3Amerged+head%3Asaul-week2)
+- [Issues](https://github.com/JustNekoChris/CST438-Project1-Grp2/issues?q=is%3Aissue+assignee%3ABetterCallSaulM)
 
-## Name Name
-- [Pull requests]()
-- [Issues]()
-
-### My Role: 
+### My Role: Working on the search functions and displaying the Pokemon
 + What was the biggest challenge? 
-  + 
+  + The biggest challenge would be the fact that I missed the first 2 weeks of class for reasons out of my control.
 + Why was it a challenge?
-  + 
+  + It was a big challenge because I missed the first few weeks of class which also meant that I missed our few meetings and sprint iterations, so when I did get back, I was fairly behind.
 + Favorite / most interesting part of this project
-  + 
+  + My favorite part was implementing the search by type functionality.
 + If you could do it over, what would you change?
-  + 
+  + If I could do this over I would try to communicate better with my team, especially for the days where we cannot meet in person.
 + What is the most valuable thing you learned?
-  + 
-
+  + The most valuable takeaway was definitely the importance of good communication with your team and how it can make your lives so much easier.
 
 ## How's this app built?
 
