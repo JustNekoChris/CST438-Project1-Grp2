@@ -74,7 +74,7 @@ public class PokemonDatabaseTest {
         assertEquals("JohnDoe@gmail.com", pokemonList.get(0).getUserInfo());
         assertEquals(25.0, pokemonList.get(0).getPokeID(), 0.0);
         assertEquals("pikachu", pokemonList.get(0).getPokeName());
-        assertEquals("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png", pokemonList.get(0).getImageURL());
+        assertEquals("https://example.com/sprites/pokemon/25.png", pokemonList.get(0).getImageURL());
 
         assertEquals("JohnDoe@gmail.com", pokemonList.get(1).getUserInfo());
         assertEquals(12.0, pokemonList.get(1).getPokeID(), 0.0);
