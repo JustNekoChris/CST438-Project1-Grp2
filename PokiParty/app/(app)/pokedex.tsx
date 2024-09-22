@@ -142,23 +142,23 @@ export default function Search() {
             ) : (
                 <View>
 
-                    <PokeStats { temp = {
-                       pokemonData["name"],
-                       pokemonData["sprites"]["front_default"],
-                       pokemonData["height"],
-                       pokemonData["stats"][0]["stat"]['name'],
-                       pokemonData["stats"][0]["base_stat"],
-                       pokemonData["stats"][1]["stat"]['name'],
-                       pokemonData["stats"][1]["base_stat"],
-                       pokemonData["stats"][2]["stat"]['name'],
-                       pokemonData["stats"][2]["base_stat"],
-                       pokemonData["stats"][3]["stat"]['name'],
-                       pokemonData["stats"][3]["base_stat"],
-                       pokemonData["stats"][4]["stat"]['name'],
-                       pokemonData["stats"][4]["base_stat"],
-                       pokemonData["stats"][5]["stat"]['name'],
-                       pokemonData["stats"][5]["base_stat"]
-                    }} />
+                    <PokeStats 
+                       pokemonName={    pokemonData["name"]} 
+                       pokemonURL={     pokemonData["sprites"]["front_default"]}
+                       pokemonHeight={  pokemonData["height"]}
+                       stat1Name={      pokemonData["stats"][0]["stat"]['name']}
+                       stat1Val={       pokemonData["stats"][0]["base_stat"]} 
+                       stat2Name={      pokemonData["stats"][1]["stat"]['name']}
+                       stat2Val={       pokemonData["stats"][1]["base_stat"]} 
+                       stat3Name={      pokemonData["stats"][2]["stat"]['name']}
+                       stat3Val={       pokemonData["stats"][2]["base_stat"]} 
+                       stat4Name={      pokemonData["stats"][3]["stat"]['name']}
+                       stat4Val={       pokemonData["stats"][3]["base_stat"]}
+                       stat5Name={      pokemonData["stats"][4]["stat"]['name']}
+                       stat5Val={       pokemonData["stats"][4]["base_stat"]}
+                       stat6Name={      pokemonData["stats"][5]["stat"]['name']}
+                       stat6Val={       pokemonData["stats"][5]["base_stat"]}
+                    />
 
                 </View>
             )}   
@@ -207,28 +207,26 @@ export default function Search() {
                         ) : (
                             <View style={styles.modalContainer}>
                                 <View style={styles.modalContent}>
-                                    <View>
-                                        <View style={styles.center}>
-                                            <ThemedText>{modalData["name"]}</ThemedText>
-                                            <Image 
-                                            source={{ uri : modalData["sprites"]["front_default"]}}
-                                            style={{width : 200, height : 200}}
-                                            />
-                                            <ThemedText> Height: {modalData["height"]}</ThemedText>
-                                        </View>
-                                        <ThemedText style={styles.center} type="title">Base Stats</ThemedText>
-                                        <View style={styles.rows}>
-                                            <ThemedText style={styles.statColumns}> {modalData["stats"][0]["stat"]['name']} : {modalData["stats"][0]["base_stat"]} </ThemedText>
-                                            <ThemedText style={styles.statColumns}> {modalData["stats"][1]["stat"]['name']} : {modalData["stats"][1]["base_stat"]} </ThemedText>
-                                            <ThemedText style={styles.statColumns}> {modalData["stats"][2]["stat"]['name']} : {modalData["stats"][2]["base_stat"]} </ThemedText>
-                                        </View>
-                                        <View style={styles.rows}>
-                                            <ThemedText style={styles.statColumns}> {modalData["stats"][3]["stat"]['name']} : {modalData["stats"][3]["base_stat"]} </ThemedText>
-                                            <ThemedText style={styles.statColumns}> {modalData["stats"][4]["stat"]['name']} : {modalData["stats"][4]["base_stat"]} </ThemedText>
-                                            <ThemedText style={styles.statColumns}> {modalData["stats"][5]["stat"]['name']} : {modalData["stats"][5]["base_stat"]} </ThemedText>
-                                        </View>
+                                    <View style={styles.center}>
+                                        <PokeStats 
+                                           pokemonName={    modalData["name"]} 
+                                           pokemonURL={     modalData["sprites"]["front_default"]}
+                                           pokemonHeight={  modalData["height"]}
+                                           stat1Name={      modalData["stats"][0]["stat"]['name']}
+                                           stat1Val={       modalData["stats"][0]["base_stat"]} 
+                                           stat2Name={      modalData["stats"][1]["stat"]['name']}
+                                           stat2Val={       modalData["stats"][1]["base_stat"]} 
+                                           stat3Name={      modalData["stats"][2]["stat"]['name']}
+                                           stat3Val={       modalData["stats"][2]["base_stat"]} s
+                                           stat4Name={      modalData["stats"][3]["stat"]['name']}
+                                           stat4Val={       modalData["stats"][3]["base_stat"]}
+                                           stat5Name={      modalData["stats"][4]["stat"]['name']}
+                                           stat5Val={       modalData["stats"][4]["base_stat"]}
+                                           stat6Name={      modalData["stats"][5]["stat"]['name']}
+                                           stat6Val={       modalData["stats"][5]["base_stat"]}
+                                        />
                                     </View>
-                                    <View style={styles.center, styles.rows}>
+                                    <View style={styles.rows}>
                                         <Button title="Back" onPress={() => setModalVisible(false)} />
                                         <AddOrRemoveButton pokeID={modalData["id"]}/>
                                         {/* <Button title='Add to Team' onPress={() => addPokemonToPC(modalData["id"], modalData["name"], modalData["sprites"]["front_default"])} /> */}

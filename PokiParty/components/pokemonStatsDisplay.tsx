@@ -26,14 +26,13 @@ export type pokemonData = {
   };
 
 // Base code to let users click on an image of a pokemon and have something happen
-// TODO : Redirect to a specific pokemon page
 export function PokeStats ( temp : pokemonData ) {
 
-    return <View>
+    return <View> 
                 <View style={styles.center}>
                     <ThemedText>{temp.pokemonName}</ThemedText>
                     <Image 
-                        source={{ uri : temp.pokemonURL}}
+                        source={{uri : (temp.pokemonURL)}}
                         style={{width : 200, height : 200}}
                     />
                     <ThemedText> Height: {temp.pokemonHeight.toString()}</ThemedText>
@@ -43,8 +42,8 @@ export function PokeStats ( temp : pokemonData ) {
                     <ThemedText style={styles.statColumns}> {temp.stat1Name} : {temp.stat1Val.toString()} </ThemedText>
                     <ThemedText style={styles.statColumns}> {temp.stat2Name} : {temp.stat2Val.toString()} </ThemedText>
                     <ThemedText style={styles.statColumns}> {temp.stat3Name} : {temp.stat3Val.toString()} </ThemedText>
-                </View>temp.temp.
-                <View style={styles.rows}>temp.temp.
+                </View>
+                <View style={styles.rows}>
                     <ThemedText style={styles.statColumns}> {temp.stat4Name} : {temp.stat4Val.toString()} </ThemedText>
                     <ThemedText style={styles.statColumns}> {temp.stat5Name} : {temp.stat5Val.toString()} </ThemedText>
                     <ThemedText style={styles.statColumns}> {temp.stat6Name} : {temp.stat6Val.toString()} </ThemedText>
